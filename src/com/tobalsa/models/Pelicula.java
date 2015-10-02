@@ -6,7 +6,7 @@ import com.tobalsa.actores.ListaActores;
  * Created by toburi on 30/09/2015.
  * Creado por toburi el 30/09/2015.
  */
-public class Pelicula {
+public class Pelicula implements Comparable<Pelicula> {
     private String titulo;
     private ListaActores listaAct;
     private int recaudacion;
@@ -34,6 +34,16 @@ public class Pelicula {
     }
     public void setRecaudacion(int recaudacion) {
         this.recaudacion = recaudacion;
+    }
+
+    public void imprimir(){
+        System.out.println(this.getTitulo()+", sus actores son: "+this.);
+        this.listaAct.imprimir();
+    }
+
+    @Override
+    public int compareTo(Pelicula o) {
+        return this.getTitulo().compareTo(o.getTitulo());
     }
 
 }

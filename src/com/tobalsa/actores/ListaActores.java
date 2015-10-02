@@ -16,23 +16,22 @@ public class ListaActores <T extends Comparable<T>> extends ArrayList{
     }
 
     public Actor buscarActorPorNombre(String nombre){
-        mergeSort();
+        return null;
         //return Actor;
     }
 
-    public void mergeSort(T[] alActores){
-        ordenarLista(alActores, 0, alActores.length-1);
+    public void ordenarLista(T[] alActores){
+        mergeSort(alActores, 0, alActores.length-1);
     }
 //TODO mergesort
-    private ListaActores ordenarLista(T[] tabla, int inicio, int fin){
+    private ListaActores mergeSort(T[] tabla, int inicio, int fin){
         if ( inicio < fin ) { // hay más de un elemento en la tabla
-            ordenarLista(tabla, inicio, (inicio+fin)/2);
-            ordenarLista(tabla, ((inicio+fin)/2)+1, fin);
+            mergeSort(tabla, inicio, (inicio+fin)/2);//Trozo izq
+            mergeSort(tabla, ((inicio+fin)/2)+1, fin);//Trozo der
             merge(tabla, inicio, (inicio+fin)/2, fin);
         }
-        ArrayList al = new ArrayList();
-        al = tabla;
-        return tabla;
+
+        return ;
     }
 
     private void merge (T[] tabla, int i, int centro, int f) {

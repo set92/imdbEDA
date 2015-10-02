@@ -6,7 +6,7 @@ import com.tobalsa.peliculas.ListaPeliculas;
  * Created by toburi on 30/09/2015.
  * Creado por toburi el 30/09/2015.
  */
-public class Actor {
+public class Actor implements Comparable<Actor>{
     private String nombre;
     private ListaPeliculas listPeli;
 
@@ -28,4 +28,13 @@ public class Actor {
         this.listPeli = listPeli;
     }
 
+    public void imprimir(){
+        System.out.println(this.getNombre()+", sus PELICULAS son: "+this.);
+        this.listPeli.imprimir();
+    }
+
+    @Override
+    public int compareTo(Actor o) {
+        return this.getNombre().compareTo(o.getNombre());
+    }
 }
