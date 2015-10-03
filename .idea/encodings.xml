@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/src/com/tobalsa/actores/CatalogoActores.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/com/tobalsa/actores/ListaActores.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/com/tobalsa/models/Actor.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/com/tobalsa/models/Pelicula.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/com/tobalsa/peliculas/CatalogoPeliculas.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/com/tobalsa/peliculas/ListaPeliculas.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/com/tobalsa/proyectos/Fichero.java" charset="UTF-8" />
+    <file url="PROJECT" charset="UTF-8" />
+  </component>
+</project>
