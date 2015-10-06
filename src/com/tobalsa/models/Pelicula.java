@@ -11,11 +11,10 @@ public class Pelicula implements Comparable<Pelicula> {
 	private ListaActores listaA;
 	private int recaudacion;
 	//constructora
-	public Pelicula(String titulo, ListaActores listaA, int recaudacion) {
-		super();
+	public Pelicula(String titulo) {
 		this.titulo = titulo;
-		this.listaA = listaA;
-		this.recaudacion = recaudacion;
+		this.listaA = new ListaActores();
+		this.recaudacion = 0;
 	}
 	//getters y setters
 	public String getTitulo() {
@@ -40,11 +39,16 @@ public class Pelicula implements Comparable<Pelicula> {
 	public void incrementarR(int n){
 		this.recaudacion += n;
 	}
-	
 	public void imprimir(){
 		System.out.println(this.getTitulo());
 	}
-
+    public void anadirActor(Actor pActor){this.listaA.anadirActor(pActor);}
+    public void eliminarActor(Actor pActor){this.listaA.eliminarActor(pActor);}
+    public void mostrarApariciones (){
+        this.imprimir();
+        System.out.println("Num actores: "+this.listaA.tamano());
+        this.listaA.imprimir();
+    }
 	@Override
 	public int compareTo(Pelicula o) {
 		return this.getTitulo().compareTo(o.getTitulo());

@@ -33,7 +33,7 @@ public class ListaActores {
         Iterator<Actor> itr = this.getIterador();
         while (!enc && itr.hasNext()){
             seBusca = itr.next();
-            if (seBusca.getNombre()==nombre){
+            if (seBusca.getNombre().equals(nombre)){
                 enc = true;
             }
         }
@@ -49,7 +49,7 @@ public class ListaActores {
         Iterator<Actor> itr = this.getIterador();
         while (!esta && itr.hasNext()){
             unActor = itr.next();
-            if (unActor.getNombre()==pActor.getNombre()){
+            if (unActor.getNombre().equals(pActor.getNombre())){
                 esta = true;
             }
         }
@@ -57,9 +57,7 @@ public class ListaActores {
     }
 
     public void anadirActor(Actor pActor){
-        if (!this.esta(pActor)){
-            this.listaA.add(pActor);
-        }
+        this.listaA.add(pActor);
     }
 
     public void eliminarActor(Actor pActor){
@@ -69,7 +67,30 @@ public class ListaActores {
     }
 
     public void ordenarListaActores(){
-        //TODO merge sort
+        ordenarQuickSort(0, this.tamano() - 1);
+    }
+
+    private void ordenarQuickSort(int pInicio, int pFin){
+        if (pFin - pInicio > 0){
+            int indexParticion = particion(pInicio,pFin);
+            this.ordenarQuickSort(pInicio, indexParticion - 1);
+            this.ordenarQuickSort(indexParticion + 1, pFin);
+        }
+    }
+
+    private int particion(int i, int f){
+        Actor actorPivote = this.listaA.get(i);
+        int izq = i;
+        int der = f;
+        while(izq<der){
+            while(this.listaA.get(izq).compareTo(actorPivote) <= 0 && izq < der) izq++;
+            if (izq<der)this.listaA.set(der,this.listaA.get(izq));
+            while(this.listaA.get(der).compareTo(actorPivote) > 0  && izq < der) der--;
+            if (izq<der)this.listaA.set(izq,this.listaA.get(der));
+
+        }
+        this.listaA.set(der, actorPivote);
+        return der;
     }
 
     public void imprimir(){

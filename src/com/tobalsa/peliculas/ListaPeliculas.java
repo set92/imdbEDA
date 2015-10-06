@@ -57,9 +57,8 @@ public class ListaPeliculas extends ArrayList {
 	}
 
 	public void anadirPelicula(Pelicula pPelicula){
-		if (!this.esta(pPelicula)){
 			this.listaP.add(pPelicula);
-		}
+
 	}
 	public void eliminarPelicula(Pelicula pPelicula){
 		if (this.esta(pPelicula)){
@@ -68,11 +67,36 @@ public class ListaPeliculas extends ArrayList {
 	}
 
 	public void ordenarListaPeliculas(){
-		//TODO merge sort
+		ordenarQuickSort(0, this.tamano() - 1);
+	}
+
+	private void ordenarQuickSort(int pInicio, int pFin){
+		if (pFin - pInicio > 0){
+			int indexParticion = particion(pInicio,pFin);
+			this.ordenarQuickSort(pInicio, indexParticion - 1);
+			this.ordenarQuickSort(indexParticion + 1, pFin);
+		}
+	}
+
+	private int particion(int i, int f){
+		Pelicula actorPivote = this.listaP.get(i);
+		int izq = i;
+		int der = f;
+		while(izq<der){
+			while(this.listaP.get(izq).compareTo(actorPivote) <= 0 && izq < der) izq++;
+			if (izq<der)this.listaP.set(der,this.listaP.get(izq));
+			while(this.listaP.get(der).compareTo(actorPivote) > 0  && izq < der) der--;
+			if (izq<der)this.listaP.set(izq,this.listaP.get(der));
+
+		}
+		this.listaP.set(der, actorPivote);
+		return der;
 	}
 
 	public void imprimir(){
-		this.ordenarListaPeliculas();
+		//TODO METODO ORDENAR NO FUNCIONA. FALTA DE HACER:
+        //cargar a medias(falta pasar del hashmap a array), busqueda, ordenar, guardar
+        //this.ordenarListaPeliculas();
 		Pelicula unaPelicula = null;
 		Iterator<Pelicula> itr = this.getIterador();
 		while (itr.hasNext()){
