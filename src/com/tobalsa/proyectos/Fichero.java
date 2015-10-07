@@ -6,8 +6,10 @@ import com.tobalsa.models.Pelicula;
 import com.tobalsa.peliculas.CatalogoPeliculas;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.HashMap;
 
@@ -22,7 +24,7 @@ public class Fichero {
         Actor objActor;
         CatalogoActores catActores = CatalogoActores.getCatalogoActores();
         CatalogoPeliculas catPelicula = CatalogoPeliculas.getCatalogoPeliculas();
-
+        String[] a;
         HashMap<String, Pelicula> hm;
 
         int cont = 0;
@@ -32,7 +34,7 @@ public class Fichero {
             BufferedReader br = new BufferedReader(new FileReader("actors-movies-2015-2016.txt"));
             String line = br.readLine();
             while (line != null){
-                String[] a = line.split("\\s+###\\s+");//Por cada linea corta nombres y mete en posiciones del array
+                a = line.split("\\s+###\\s+");//Por cada linea corta nombres y mete en posiciones del array
                 objActor = new Actor(a[0]);//Creamos objeto Actor con su nombre
                 catActores.anadirActor(objActor);
 
@@ -51,22 +53,15 @@ public class Fichero {
                 }
                 cont++;
 
-                //catActores.anadirActor(objActor);//Añadir actor a catalogo
-//                for (int i = 0; i < a.length; i++) {//Recorremos resto de linea y vamos agregando pelis al actor
-//                    //TODO habra peliculas repetidas, o comprobar ahora o quitar redundantes luego
-//                    //Si se hace con hashtable esta la solucion de que al ir por llaves, tu buscas con get una llave y listo, no puede haber duplicados
-//                    objPeli = new Pelicula(a[i]);//Crear pelicula
-//                    objActor.getListaP().anadirPelicula(objPeli);//Añadir peli a pelis de actor
-//                    //catPelicula.anadirPelicula(objPeli);//Añadir peli al catalogo de actores
-//                    objPeli.getListaA().anadirActor(objActor);//Añadir actor a su peli
-//                }
                 line = br.readLine();//lectura siempre al final
                 if(cont % 10000==0){System.out.println(cont);}//Imprime los numeros divisores de 10.000 para saber como va haciendolo
 
             }
             br.close();
-            Actor a = CatalogoActores.getCatalogoActores().buscarActorPorNombre("Gugliemi, Noel");
-            a.mostrarApariciones();
+            //Actor a = CatalogoActores.getCatalogoActores().buscarActorPorNombre("Gugliemi, Noel");
+            //a.mostrarApariciones();
+
+            //CatalogoActores.getCatalogoActores().ordenarLista();
 
             //Pelicula p = CatalogoPeliculas.getCatalogoPeliculas().buscarPeliculaPorTitulo("Seven Mummies");
             //p.mostrarApariciones();
@@ -79,4 +74,51 @@ public class Fichero {
             e.printStackTrace();
         }
     }
+
+    public void guardarFichero(){
+        CatalogoActores catAct = CatalogoActores.getCatalogoActores();
+        try {
+            BufferedWriter bw = new BufferedWriter(new FileWriter("actors-movies-2015-2016.bak.txt"));
+            Actor a;
+            for (int i = 0; i < catAct.tamano(); i++) {
+                a = CatalogoActores.getCatalogoActores().obtenerLista().obtenerActor(i);
+                bw.write(a.getNombre());
+
+                for (int j = 0; j < a.getListaP().tamano(); j++) {
+                    bw.append(" ### ");
+                    bw.write(a.getListaP().getPelicula(j).getTitulo());
+                }
+                bw.flush();
+                bw.newLine();
+            }
+            bw.close();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+//    public void guardar(String ruta) {
+//        CatalogoActores miCatalogoActores = CatalogoActores.getCatalogoActores();
+//        int cont =0;
+//
+//        try {
+//            BufferedWriter bw = new BufferedWriter(new FileWriter(ruta));
+//
+//            for (int i = 0; i < miCatalogoActores.obtenerLista().tamano(); i++) {
+//                Actor a = miCatalogoActores.obtenerLista().obtenerActor(i);
+//                String linea = a.getNombre();
+//
+//                for (int j = 0; j < a.getListaP().tamano(); j++) {
+//                    Pelicula p = a.getListaP().getPelicula(j);
+//                    linea += " ### " + p.getTitulo();
+//                }
+//
+//                bw.write(linea);
+//                bw.newLine();
+//                bw.flush(); // Limpiar caché
+//            }
+//            bw.close();
+//        } catch (IOException e) { e.printStackTrace();}
+//    }
 }

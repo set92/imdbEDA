@@ -37,6 +37,7 @@ public class Actor implements Comparable<Actor>{
 		System.out.println("Ha aparecido: "+this.listaP.tamano());
 		this.listaP.imprimir();
 	}
+
     @Override
     public int compareTo(Actor o) {
         return this.getNombre().compareTo(o.getNombre());

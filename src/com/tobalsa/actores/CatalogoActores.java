@@ -21,6 +21,9 @@ public class CatalogoActores {
         return miCatalogoActores;
     }
 
+    public ListaActores obtenerLista(){
+        return this.lista;
+    }
     public int tamano(){
         return this.lista.tamano();
     }
@@ -41,4 +44,7 @@ public class CatalogoActores {
         this.lista.imprimir();
     }
 
+    public void ordenarLista(){
+        this.lista.ordenarListaActores();
+    }
 }

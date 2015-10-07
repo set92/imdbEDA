@@ -22,7 +22,9 @@ public class ListaActores {
     public int tamano(){
         return this.listaA.size();
     }
-
+    public Actor obtenerActor(int i){
+        return this.listaA.get(i);
+    }
     private Iterator<Actor> getIterador(){
         return this.listaA.iterator();
     }
@@ -82,19 +84,26 @@ public class ListaActores {
         Actor actorPivote = this.listaA.get(i);
         int izq = i;
         int der = f;
+
         while(izq<der){
             while(this.listaA.get(izq).compareTo(actorPivote) <= 0 && izq < der) izq++;
-            if (izq<der)this.listaA.set(der,this.listaA.get(izq));
-            while(this.listaA.get(der).compareTo(actorPivote) > 0  && izq < der) der--;
-            if (izq<der)this.listaA.set(izq,this.listaA.get(der));
+            while(this.listaA.get(der).compareTo(actorPivote) > 0) der--;
+            if (izq<der)swap(izq, der);
 
         }
+        this.listaA.set(i, this.listaA.get(der));
         this.listaA.set(der, actorPivote);
         return der;
     }
 
+    private void swap(int one, int two) {
+        Actor temp = listaA.get(one);
+        listaA.set(one, listaA.get(two));
+        listaA.set(two, temp);
+    }
+
+
     public void imprimir(){
-        this.ordenarListaActores();
         Actor unActor = null;
         Iterator<Actor> itr = this.getIterador();
         while (itr.hasNext()){

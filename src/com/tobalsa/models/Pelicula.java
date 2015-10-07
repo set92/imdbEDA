@@ -35,6 +35,7 @@ public class Pelicula implements Comparable<Pelicula> {
 	public void setRecaudacion(int recaudacion) {
 		this.recaudacion = recaudacion;
 	}
+
 	//metodos
 	public void incrementarR(int n){
 		this.recaudacion += n;
