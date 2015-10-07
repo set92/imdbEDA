@@ -19,8 +19,7 @@ public class Main {
         Fichero f = new Fichero();
 
         f.cargarFichero();
-        //f.guardar("actors-movies-2015-2016.bak.txt");
-        f.guardarFichero();
+        //f.guardarFichero();
 
         return timer.elapsedTime();
     }

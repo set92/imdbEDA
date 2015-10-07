@@ -43,9 +43,6 @@ public class Fichero {
                     if (objPeli == null){
                         objPeli = new Pelicula(a[i]);
                         hm.put(a[i], objPeli);
-
-                        //CatalogoPeliculas.getCatalogoPeliculas().anadirPelicula(objPeli);
-                        //Hacerlo despues de tener todas las peliculas
                     }
                     objPeli.anadirActor(objActor);
 
@@ -58,6 +55,9 @@ public class Fichero {
 
             }
             br.close();
+            for (Pelicula p :hm.values()) {
+                CatalogoPeliculas.getCatalogoPeliculas().anadirPelicula(p);
+            }
             //Actor a = CatalogoActores.getCatalogoActores().buscarActorPorNombre("Gugliemi, Noel");
             //a.mostrarApariciones();
 

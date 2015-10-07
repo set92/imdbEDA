@@ -9,7 +9,7 @@ import java.util.Iterator;
  * Created by toburi on 30/09/2015.
  * Creado por toburi el 30/09/2015.
  */
-public class ListaPeliculas extends ArrayList {
+public class ListaPeliculas {
 	//atributos
 	private ArrayList<Pelicula> listaP;
 
