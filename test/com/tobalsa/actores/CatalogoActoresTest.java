@@ -35,6 +35,12 @@ public class CatalogoActoresTest { // En esta clase está testeado el funcionamie
 		System.out.println("\nFinalizado en " + timer.elapsedTime() + " ms. (imprimir)");
 
 		timer = new Stopwatch();
+        miCatalogoActores.buscarActorPorNombre("  insd ttir, Hrefna");
+        miCatalogoActores.buscarActorPorNombre("??ri, Esa");
+        miCatalogoActores.buscarActorPorNombre("Iannuzzi, Mike (II)");
+		System.out.println("\nFinalizado en " + timer.elapsedTime() + " ms. (busquedas)");
+
+		timer = new Stopwatch();
 		miCatalogoActores.imprmirListaOrdenada();
 		System.out.println("\nFinalizado en " + timer.elapsedTime() + " ms. (imprimirOrdenado)");
 
