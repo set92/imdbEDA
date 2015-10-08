@@ -35,15 +35,6 @@ public class CatalogoActoresTest { // En esta clase está testeado el funcionamie
 		System.out.println("\nFinalizado en " + timer.elapsedTime() + " ms. (imprimir)");
 
 		timer = new Stopwatch();
-		miCatalogoActores.buscarActorPorNombre("Cruise, Tom");
-		miCatalogoActores.buscarActorPorNombre("Affleck, Ben");
-		miCatalogoActores.buscarActorPorNombre("Hanks, Tom");
-		miCatalogoActores.buscarActorPorNombre("Bale, Christian");
-		miCatalogoActores.buscarActorPorNombre("Wayne, Bruce");
-		miCatalogoActores.buscarActorPorNombre("#");
-		System.out.println("\nFinalizado en " + timer.elapsedTime() + " ms. (busquedas)");
-
-		timer = new Stopwatch();
 		miCatalogoActores.imprmirListaOrdenada();
 		System.out.println("\nFinalizado en " + timer.elapsedTime() + " ms. (imprimirOrdenado)");
 
