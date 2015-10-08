@@ -19,7 +19,7 @@ import java.util.HashMap;
  */
 public class Fichero {
 
-    public void cargarFichero(){//String path
+    public void cargarFichero(String path){//String path
         Pelicula objPeli;
         Actor objActor;
         CatalogoActores catActores = CatalogoActores.getCatalogoActores();
@@ -31,7 +31,7 @@ public class Fichero {
 
         try {
             hm = new HashMap<String,Pelicula>();
-            BufferedReader br = new BufferedReader(new FileReader("actors-movies-2015-2016.txt"));
+            BufferedReader br = new BufferedReader(new FileReader(path));
             String line = br.readLine();
             while (line != null){
                 a = line.split("\\s+###\\s+");//Por cada linea corta nombres y mete en posiciones del array
@@ -67,18 +67,18 @@ public class Fichero {
             //p.mostrarApariciones();
 
             System.out.println("done");
-
+            catActores.imprmirListaOrdenada();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("Archivo no encontrado");
         }
     }
 
-    public void guardarFichero(){
+    public void guardarFichero(String path){
         CatalogoActores catAct = CatalogoActores.getCatalogoActores();
         try {
-            BufferedWriter bw = new BufferedWriter(new FileWriter("actors-movies-2015-2016.bak.txt"));
+            BufferedWriter bw = new BufferedWriter(new FileWriter(path));
             Actor a;
             for (int i = 0; i < catAct.tamano(); i++) {
                 a = CatalogoActores.getCatalogoActores().obtenerLista().obtenerActor(i);
@@ -97,28 +97,4 @@ public class Fichero {
             e.printStackTrace();
         }
     }
-
-//    public void guardar(String ruta) {
-//        CatalogoActores miCatalogoActores = CatalogoActores.getCatalogoActores();
-//        int cont =0;
-//
-//        try {
-//            BufferedWriter bw = new BufferedWriter(new FileWriter(ruta));
-//
-//            for (int i = 0; i < miCatalogoActores.obtenerLista().tamano(); i++) {
-//                Actor a = miCatalogoActores.obtenerLista().obtenerActor(i);
-//                String linea = a.getNombre();
-//
-//                for (int j = 0; j < a.getListaP().tamano(); j++) {
-//                    Pelicula p = a.getListaP().getPelicula(j);
-//                    linea += " ### " + p.getTitulo();
-//                }
-//
-//                bw.write(linea);
-//                bw.newLine();
-//                bw.flush(); // Limpiar caché
-//            }
-//            bw.close();
-//        } catch (IOException e) { e.printStackTrace();}
-//    }
 }

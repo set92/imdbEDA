@@ -111,4 +111,9 @@ public class ListaActores {
             unActor.imprimir();
         }
     }
+
+    public void imprimirOrdenado(){
+        this.ordenarListaActores();
+        this.imprimir();
+    }
 }

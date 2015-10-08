@@ -4,6 +4,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import static org.junit.Assert.assertEquals;
+
 /**
  * Created by toburi on 08/10/2015.
  * Creado por toburi el 08/10/2015.
@@ -21,6 +23,17 @@ public class PeliculaTest {
         p1.getListaA().anadirActor(a1);
     }
 
+    @After
+    public void tearDown() throws Exception {
+        a1=null;
+        a2=null;
+        a3=null;
+        p1=null;
+        p2=null;
+        p3=null;
+    }
+
+
     @Test
     public void testImprimir() {
         p1.imprimir();
@@ -37,13 +50,12 @@ public class PeliculaTest {
         p2.mostrarApariciones();
     }
 
-    @After
-    public void tearDown() throws Exception {
-        a1=null;
-        a2=null;
-        a3=null;
-        p1=null;
-        p2=null;
-        p3=null;
+    @Test
+    public void testIncrementarRecaudacion(){
+        assertEquals(p1.getRecaudacion(),0);
+        p1.incrementarR(1000);
+        assertEquals(p1.getRecaudacion(),1000);
+        p1.incrementarR(-100);
+        assertEquals(p1.getRecaudacion(),900);
     }
 }

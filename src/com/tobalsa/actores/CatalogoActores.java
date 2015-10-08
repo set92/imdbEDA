@@ -47,4 +47,8 @@ public class CatalogoActores {
     public void ordenarLista(){
         this.lista.ordenarListaActores();
     }
+
+    public void imprmirListaOrdenada(){
+        this.lista.imprimirOrdenado();
+    }
 }

@@ -18,7 +18,7 @@ public class Main {
         Stopwatch timer = new Stopwatch();
         Fichero f = new Fichero();
 
-        f.cargarFichero();
+        f.cargarFichero("actors-movies-2015-2016.txt");
         //f.guardarFichero();
 
         return timer.elapsedTime();
