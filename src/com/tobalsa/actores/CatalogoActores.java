@@ -49,6 +49,7 @@ public class CatalogoActores {
     }
 
     public void imprmirListaOrdenada(){
-        this.lista.imprimirOrdenado();
+        this.ordenarLista();
+        this.imprimirLista();
     }
 }

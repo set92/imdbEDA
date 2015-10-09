@@ -1,4 +1,4 @@
-package com.tobalsa.proyectos;
+package com.tobalsa.secundarias;
 
 public class Stopwatch { 
 

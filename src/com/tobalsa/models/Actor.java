@@ -9,7 +9,7 @@ public class Actor implements Comparable<Actor>{
 	//atributos
 	private String nombre;
 	private ListaPeliculas listaP;
-	//constructora
+	//constructor
 	public Actor(String nombre) {
 		this.nombre = nombre;
 		this.listaP = new ListaPeliculas();
@@ -27,7 +27,6 @@ public class Actor implements Comparable<Actor>{
 	public void setListaP(ListaPeliculas listaP) {
 		this.listaP = listaP;
 	}
-	
 	//metodos
 	public void imprimir(){
         System.out.println(this.getNombre());
@@ -37,7 +36,6 @@ public class Actor implements Comparable<Actor>{
 		System.out.println("Ha aparecido: "+this.listaP.tamano());
 		this.listaP.imprimir();
 	}
-
     @Override
     public int compareTo(Actor o) {
         return this.getNombre().compareTo(o.getNombre());

@@ -112,8 +112,8 @@ public class ListaActores {
         }
     }
 
-    public void imprimirOrdenado(){
-        this.ordenarListaActores();
-        this.imprimir();
-    }
+//    public void imprimirOrdenado(){
+//        this.ordenarListaActores();
+//        this.imprimir();
+//    }
 }

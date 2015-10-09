@@ -1,4 +1,4 @@
-package com.tobalsa.proyectos;
+package com.tobalsa.secundarias;
 
 import com.tobalsa.actores.CatalogoActores;
 import com.tobalsa.models.Actor;
@@ -12,6 +12,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.regex.Pattern;
 
 /**
  * Created by toburi on 01/10/2015.
@@ -19,11 +20,10 @@ import java.util.HashMap;
  */
 public class Fichero {
 
-    public void cargarFichero(String path){//String path
+    public void cargarFichero(String path){
         Pelicula objPeli;
         Actor objActor;
         CatalogoActores catActores = CatalogoActores.getCatalogoActores();
-        CatalogoPeliculas catPelicula = CatalogoPeliculas.getCatalogoPeliculas();
         String[] a;
         HashMap<String, Pelicula> hm;
 
@@ -33,8 +33,9 @@ public class Fichero {
             hm = new HashMap<String,Pelicula>();
             BufferedReader br = new BufferedReader(new FileReader(path));
             String line = br.readLine();
+            Pattern patron = Pattern.compile("\\s+###\\s+");
             while (line != null){
-                a = line.split("\\s+###\\s+");//Por cada linea corta nombres y mete en posiciones del array
+                a = patron.split(line);//Por cada linea corta nombres y mete en posiciones del array
                 objActor = new Actor(a[0]);//Creamos objeto Actor con su nombre
                 catActores.anadirActor(objActor);
 
@@ -45,29 +46,17 @@ public class Fichero {
                         hm.put(a[i], objPeli);
                     }
                     objPeli.anadirActor(objActor);
-
                     objActor.getListaP().anadirPelicula(objPeli);
                 }
                 cont++;
-
                 line = br.readLine();//lectura siempre al final
                 if(cont % 10000==0){System.out.println(cont);}//Imprime los numeros divisores de 10.000 para saber como va haciendolo
-
             }
             br.close();
+
             for (Pelicula p :hm.values()) {
                 CatalogoPeliculas.getCatalogoPeliculas().anadirPelicula(p);
             }
-            //Actor a = CatalogoActores.getCatalogoActores().buscarActorPorNombre("Gugliemi, Noel");
-            //a.mostrarApariciones();
-
-            //CatalogoActores.getCatalogoActores().ordenarLista();
-
-            //Pelicula p = CatalogoPeliculas.getCatalogoPeliculas().buscarPeliculaPorTitulo("Seven Mummies");
-            //p.mostrarApariciones();
-
-            System.out.println("done");
-            catActores.imprmirListaOrdenada();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
