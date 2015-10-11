@@ -2,29 +2,27 @@ package com.tobalsa.actores;
 
 import com.tobalsa.secundarias.Fichero;
 import com.tobalsa.secundarias.Stopwatch;
-
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Test;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
 
 public class CatalogoActoresTest { // En esta clase está testeado el funcionamiento general del programa pedido para esta práctica
 	Fichero lector;
 	CatalogoActores miCatalogoActores;
 	Stopwatch timer;
 	
-	@BeforeMethod
+	@Before
 	public void setUp() throws Exception {
 		lector = new Fichero();
 		miCatalogoActores = CatalogoActores.getCatalogoActores();
 
 	}
 
-	@AfterMethod
+	@After
 	public void tearDown() throws Exception { }
 	
 	@Test
 	public void testCargarMostrarBuscarMostrarOrdenadoYGuardar() {
-		//lector.cargarFichero("Inventado.txt");
 
 		timer = new Stopwatch();
 		lector.cargarFichero("actors-movies-2015-2016.txt");

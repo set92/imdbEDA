@@ -35,7 +35,7 @@ public class ListaPeliculas {
 		Iterator<Pelicula> itr = this.getIterador();
 		while (!enc && itr.hasNext()){
 			seBusca = itr.next();
-			if (seBusca.getTitulo()==titulo){
+			if (seBusca.getTitulo().equals(titulo)){
 				enc = true;
 			}
 		}
