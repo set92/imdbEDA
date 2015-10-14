@@ -2,23 +2,23 @@ package com.tobalsa.actores;
 
 import com.tobalsa.secundarias.Fichero;
 import com.tobalsa.secundarias.Stopwatch;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
 
 public class CatalogoActoresTest { // En esta clase está testeado el funcionamiento general del programa pedido para esta práctica
 	Fichero lector;
 	CatalogoActores miCatalogoActores;
 	Stopwatch timer;
 	
-	@Before
+	@BeforeMethod
 	public void setUp() throws Exception {
 		lector = new Fichero();
 		miCatalogoActores = CatalogoActores.getCatalogoActores();
 
 	}
 
-	@After
+	@AfterMethod
 	public void tearDown() throws Exception { }
 	
 	@Test
@@ -38,18 +38,5 @@ public class CatalogoActoresTest { // En esta clase está testeado el funcionamie
         miCatalogoActores.buscarActorPorNombre("Iannuzzi, Mike (II)");
 		System.out.println("\nFinalizado en " + timer.elapsedTime() + " ms. (busquedas)");
 
-		timer = new Stopwatch();
-		miCatalogoActores.imprmirListaOrdenada();
-		System.out.println("\nFinalizado en " + timer.elapsedTime() + " ms. (imprimirOrdenado)");
-
-		timer = new Stopwatch();// Buscar en una lista ordenada
-		miCatalogoActores.buscarActorPorNombre("  insd ttir, Hrefna");
-		miCatalogoActores.buscarActorPorNombre("??ri, Esa");
-		miCatalogoActores.buscarActorPorNombre("Iannuzzi, Mike (II)");
-		System.out.println("\nFinalizado en " + timer.elapsedTime() + " ms. (buscarOrdenado)");
-
-		timer = new Stopwatch();
-		lector.guardarFichero("actors-movies-2015-2016.bak.txt");
-		System.out.println("\nFinalizado en " + timer.elapsedTime() + " ms. (guardar)");
 	}
 }

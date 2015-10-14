@@ -12,8 +12,7 @@ public class CatalogoActores {
     private static CatalogoActores miCatalogoActores = new CatalogoActores();
 
     //constructora
-    private CatalogoActores(){
-        this.lista = new ListaActores();
+    private CatalogoActores(){ lista = new ListaActores();
     }
 
     //metodos
@@ -41,6 +40,7 @@ public class CatalogoActores {
     }
 
     public void imprimirLista(){
+        System.out.println("Hay un total de " + this.lista.tamano() + " actores.");
         this.lista.imprimir();
     }
 
