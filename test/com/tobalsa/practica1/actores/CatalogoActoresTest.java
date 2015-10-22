@@ -1,24 +1,25 @@
 package com.tobalsa.practica1.actores;
 
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+
 import com.tobalsa.practica1.secundarias.Fichero;
 import com.tobalsa.practica1.secundarias.Stopwatch;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Test;
 
 public class CatalogoActoresTest { // En esta clase est� testeado el funcionamiento general del programa pedido para esta pr�ctica
 	Fichero lector;
 	CatalogoActores miCatalogoActores;
 	Stopwatch timer;
 	
-	@BeforeMethod
+	@Before
 	public void setUp() throws Exception {
 		lector = new Fichero();
 		miCatalogoActores = CatalogoActores.getCatalogoActores();
 
 	}
 
-	@AfterMethod
+	@After
 	public void tearDown() throws Exception { }
 	
 	@Test
