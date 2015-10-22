@@ -1,7 +1,6 @@
-package com.tobalsa.peliculas;
+package com.tobalsa.practica1.peliculas;
 
-import com.tobalsa.models.Pelicula;
-
+import com.tobalsa.practica1.models.Pelicula;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;

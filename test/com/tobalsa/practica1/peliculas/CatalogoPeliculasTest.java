@@ -1,7 +1,10 @@
-package com.tobalsa.peliculas;
+package com.tobalsa.practica1.peliculas;
 
-import com.tobalsa.models.Pelicula;
-import com.tobalsa.secundarias.Fichero;
+
+import com.tobalsa.practica1.models.Pelicula;
+import com.tobalsa.practica1.peliculas.CatalogoPeliculas;
+import com.tobalsa.practica1.secundarias.Fichero;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;

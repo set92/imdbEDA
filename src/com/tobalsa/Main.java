@@ -1,7 +1,7 @@
 package com.tobalsa;
 
-import com.tobalsa.secundarias.Fichero;
-import com.tobalsa.secundarias.Stopwatch;
+import com.tobalsa.practica1.secundarias.Fichero;
+import com.tobalsa.practica1.secundarias.Stopwatch;
 
 /**
  * Created by toburi on 30/09/2015.

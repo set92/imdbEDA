@@ -1,4 +1,4 @@
-package com.tobalsa.secundarias;
+package com.tobalsa.practica1.secundarias;
 
 import org.junit.After;
 import org.junit.Before;

@@ -1,6 +1,6 @@
-package com.tobalsa.models;
+package com.tobalsa.practica1.models;
 
-import com.tobalsa.peliculas.ListaPeliculas;
+import com.tobalsa.practica1.peliculas.ListaPeliculas;
 
 /**
  * Creado por Sergio & Peio el 30/09/2015.

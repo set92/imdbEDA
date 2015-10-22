@@ -1,9 +1,9 @@
-package com.tobalsa.secundarias;
+package com.tobalsa.practica1.secundarias;
 
-import com.tobalsa.actores.CatalogoActores;
-import com.tobalsa.models.Actor;
-import com.tobalsa.models.Pelicula;
-import com.tobalsa.peliculas.CatalogoPeliculas;
+import com.tobalsa.practica1.actores.CatalogoActores;
+import com.tobalsa.practica1.models.Actor;
+import com.tobalsa.practica1.models.Pelicula;
+import com.tobalsa.practica1.peliculas.CatalogoPeliculas;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;

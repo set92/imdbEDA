@@ -1,4 +1,4 @@
-package com.tobalsa.models;
+package com.tobalsa.practica1.models;
 
 import org.junit.After;
 import org.junit.Before;

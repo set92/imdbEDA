@@ -1,6 +1,6 @@
-package com.tobalsa.actores;
+package com.tobalsa.practica1.actores;
 
-import com.tobalsa.models.Actor;
+import com.tobalsa.practica1.models.Actor;
 
 /**
  * Created by toburi on 01/10/2015.
