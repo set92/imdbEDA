@@ -70,6 +70,7 @@ public class DoubleLinkedList<T> implements ListADT<T> {
                 current.next.prev = current.prev;
             }else{//Es ultimo elemento
                 current.prev.next = null;
+                last = last.prev; //Actualizamos el indice al ultimo nodo
             }
             current = null;//Borrar el elemento que es lo qe se nos pide o mantener la informacion?
         }
