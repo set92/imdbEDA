@@ -21,16 +21,16 @@ public class UnorderedDoubleLinkedListTest {
     	lista = null;
     }
     
-    // TODO Imprimir resultados para comprobar el orden
+    // Comprobado
     @Test
     public void testAddToFront() throws Exception {
     	lista.addToFront("e");
-    	
+
     	lista.remove("e");
     	
     	lista.addToFront("x");
     	lista.addToFront("e");
-    	
+
     	lista.remove("x");
     	lista.remove("e");
     	
@@ -43,12 +43,12 @@ public class UnorderedDoubleLinkedListTest {
     @Test
     public void testAddToRear() throws Exception {
     	lista.addToRear("e");
-    	
+    	lista.visualizarNodos();
     	lista.remove("e");
     	
     	lista.addToRear("x");
     	lista.addToRear("e");
-    	
+        lista.visualizarNodos();
     	lista.remove("x");
     	lista.remove("e");
     	
@@ -56,6 +56,7 @@ public class UnorderedDoubleLinkedListTest {
     	lista.addToRear("y");
     	lista.addToRear("z");
     	lista.addToRear("e");
+        lista.visualizarNodos();
     }
 
     @Test

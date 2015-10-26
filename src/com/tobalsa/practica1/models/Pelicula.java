@@ -1,6 +1,7 @@
 package com.tobalsa.practica1.models;
 
 import com.tobalsa.practica1.actores.ListaActores;
+import com.tobalsa.practica2.DoubleLinkedList;
 
 /**
  * Creado por Sergio & Peio el 30/09/2015.

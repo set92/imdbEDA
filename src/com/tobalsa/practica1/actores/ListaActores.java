@@ -107,4 +107,5 @@ public class ListaActores {
         Iterator<Actor> itr = this.getIterador();
         while(itr.hasNext()) itr.next().imprimir();
     }
+
 }
