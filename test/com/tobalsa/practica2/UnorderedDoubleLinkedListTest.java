@@ -20,18 +20,16 @@ public class UnorderedDoubleLinkedListTest {
     public void tearDown() throws Exception {
     	lista = null;
     }
-    
-    // TODO Imprimir resultados para comprobar el orden
+
     @Test
     public void testAddToFront() throws Exception {
     	lista.addToFront("e");
-    	lista.visualizarNodos();
     	
     	lista.remove("e");
     	
     	lista.addToFront("x");
     	lista.addToFront("e");
-    	
+
     	lista.remove("x");
     	lista.remove("e");
     	
@@ -44,25 +42,28 @@ public class UnorderedDoubleLinkedListTest {
     @Test
     public void testAddToRear() throws Exception {
     	lista.addToRear("e");
-    	
-    	lista.remove("e");
-    	
+        lista.visualizarNodos();
+        System.out.println(lista.size());
+        lista.remove("e");
+
     	lista.addToRear("x");
     	lista.addToRear("e");
-    	
+        lista.visualizarNodos();
     	lista.remove("x");
     	lista.remove("e");
-    	
+        System.out.println(lista.size());
     	lista.addToRear("x");
     	lista.addToRear("y");
     	lista.addToRear("z");
     	lista.addToRear("e");
+        lista.visualizarNodos();
+        System.out.println(lista.size());
     }
 
     @Test
     public void testAddAfter() throws Exception {
     	lista.addAfter("e", "x");
-    	
+        lista.visualizarNodos();
     	lista.remove("e");
     	
     	lista.addToFront("x");

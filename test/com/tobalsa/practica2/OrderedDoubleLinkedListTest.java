@@ -27,24 +27,25 @@ public class OrderedDoubleLinkedListTest {
     public void testAdd() throws Exception {
     	// TODO Imprimir resultados para comprobar el orden
     	lista.add("a");
-    	
+
     	lista.remove("a");
-    	
+
     	lista.add("b");
     	lista.add("a");
     	lista.add("b");
     	lista.add("c");
-    	
+
+        lista.remove("b");
     	lista.remove("a");
     	lista.remove("b");
-    	lista.remove("c");
+        lista.remove("c");
     	
     	lista.add("b");
     	lista.add("d");
     	lista.add("a");
     	lista.add("b");
     	lista.add("c");
-    	lista.add("e");
+        lista.add("e");
     }
     
     @Test
@@ -63,7 +64,8 @@ public class OrderedDoubleLinkedListTest {
     	assertEquals(null, lista.removeLast());
     	lista.add("x");
     	assertEquals("x", lista.removeLast());
-    	lista.add("x");
+
+        lista.add("x");
     	lista.add("y");
     	lista.add("z");
     	assertEquals("z", lista.removeLast());

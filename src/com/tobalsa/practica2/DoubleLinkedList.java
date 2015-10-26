@@ -35,7 +35,7 @@ public class DoubleLinkedList<T> implements ListADT<T> {
         else {
             T temp = first.data;
             first = first.next;
-
+            this.count--;
             return temp;
         }
 
@@ -48,7 +48,15 @@ public class DoubleLinkedList<T> implements ListADT<T> {
         if (isEmpty()) return null;
         else {
             T temp = last.data;
-            last = last.prev;//caso especifico: cuando la lista solo tiene 1 elemento last.prev apunta a null, creo que funciona como esta
+
+            if (size() > 1){
+                last.prev.next = null;
+                last = last.prev;
+                this.count--;
+            } else {
+                first = first.next;
+                this.count--;
+            }
             return temp;
         }
     }
@@ -65,12 +73,15 @@ public class DoubleLinkedList<T> implements ListADT<T> {
             if (current.equals(first)){//Es primer elemento
                 first = current.next;
                 if (current.next != null) current.next.prev = null;//porque lo ponemos en 1er pos y hay que quitarle su prev
+                this.count--;
             }else if (current.next != null){//Esta en medio
                 current.prev.next = current.next;
                 current.next.prev = current.prev;
+                this.count--;
             }else{//Es ultimo elemento
                 current.prev.next = null;
-                last = last.prev; //Actualizamos el indice al ultimo nodo
+                last = current.prev; //Actualizamos el indice al ultimo nodo
+                this.count--;
             }
         }else return null;
         return current.data;
@@ -151,9 +162,9 @@ public class DoubleLinkedList<T> implements ListADT<T> {
         Iterator<T> it = iterator();
         while (it.hasNext()) {
             T elem = it.next();
-            result = result + "[" + elem.toString() + "] \n";
+            result = result + elem.toString() + " ";
         }
-        return "SimpleLinkedList " + result + "]";
+        return result;
     }
 
 }

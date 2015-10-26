@@ -9,25 +9,29 @@ public class OrderedDoubleLinkedList<T extends Comparable<T>> extends DoubleLink
         if (first == null) {
             first = nodoElem;
             last = nodoElem;
-        }else if (elem.compareTo(first.data) <= 0){// Si el elem es el menor
+        }else if (elem.compareTo(first.data) <= 0){// Si elem es el menor
+            nodoElem.prev = null;
             nodoElem.next = first;
             first.prev = nodoElem;
             first = nodoElem;
-        }else {//busqueda del nodo anterior al que se debe insertar
-            Node<T> anterior = first;
-            Node<T> temp = first;
-            while ((temp.next != null) && (elem.compareTo(temp.data) >= 0)){
-                anterior = temp;
-                temp = temp.next;
+        } else if (elem.compareTo(last.data) >= 0) { //Si elem es mayor
+            nodoElem.prev = last;
+            nodoElem.next = null;
+            last.next = nodoElem;
+            last = nodoElem;
+        } else {//busqueda del nodo anterior al que se debe insertar
+            Node<T> current = first;
+            while ((elem.compareTo(current.data) > 0)){
+                current = current.next;
             }
-            if (elem.compareTo(temp.data) >= 0){//Se inserta detras del ultimo nodo
-                anterior = temp;
-            }
-            nodoElem.next = anterior.next;
-            nodoElem.prev = anterior.prev;
-            anterior.next = nodoElem.next;
-            anterior.prev = nodoElem.prev;
+            nodoElem.next = current;
+            nodoElem.prev = current.prev;
+            current.prev.next = nodoElem;
+            current.prev = nodoElem;
         }
+        this.count++;
 	}
+
+
 
 }
