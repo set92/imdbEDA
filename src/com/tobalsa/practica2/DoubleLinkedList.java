@@ -2,6 +2,7 @@ package com.tobalsa.practica2;
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;
+import java.util.Stack;
 import java.util.function.Consumer;
 
 public class DoubleLinkedList<T> implements ListADT<T> {
@@ -27,20 +28,21 @@ public class DoubleLinkedList<T> implements ListADT<T> {
     } // Devuelve la descripci�n de la lista
 
     // Elimina el primer elemento de la lista
-    // Precondici�n: la lista tiene al menos un elemento
+    // Precondicion: la lista tiene al menos un elemento
     // COMPLETAR EL CODIGO Y CALCULAR EL COSTE
     public T removeFirst() {
         if (isEmpty()) return null;
         else {
             T temp = first.data;
             first = first.next;
+
             return temp;
         }
 
     }
 
-    // Elimina el �ltimo elemento de la lista
-    // Precondici�n: la lista tiene al menos un elemento
+    // Elimina el ultimo elemento de la lista
+    // Precondicion: la lista tiene al menos un elemento
     // COMPLETAR EL CODIGO Y CALCULAR EL COSTE
     public T removeLast() {
         if (isEmpty()) return null;
@@ -51,18 +53,16 @@ public class DoubleLinkedList<T> implements ListADT<T> {
         }
     }
 
-    //Elimina un elemento concreto de la lista
-    // COMPLETAR EL CODIGO Y CALCULAR EL COSTE
     public T remove(T elem) {
         Node<T> current = first;
-
         boolean enc = false;
-        while ((current!=null) && (!enc)){
-            enc = (current.data == elem);
-            if (!enc) current = current.next;
+
+        while ((current != null) && (!enc)){
+            enc = (current.data.equals(elem));
+            if (!enc) current = current.next; //Vamos recorriendo los nodos si no ha sido encontrado
         }
-        if (current != null){
-            if (current == first){//Es primer elemento
+        if (enc){
+            if (current.equals(first)){//Es primer elemento
                 first = current.next;
                 if (current.next != null) current.next.prev = null;//porque lo ponemos en 1er pos y hay que quitarle su prev
             }else if (current.next != null){//Esta en medio
@@ -72,8 +72,7 @@ public class DoubleLinkedList<T> implements ListADT<T> {
                 current.prev.next = null;
                 last = last.prev; //Actualizamos el indice al ultimo nodo
             }
-            current = null;//Borrar el elemento que es lo qe se nos pide o mantener la informacion?
-        }
+        }else return null;
         return current.data;
     }
 

@@ -5,23 +5,28 @@ public class OrderedDoubleLinkedList<T extends Comparable<T>> extends DoubleLink
 	// COMPLETAR EL CODIGO Y CALCULAR EL COSTE
     // TODO metodo incorrecto, corregir despues de preguntar, faltan los .prev
 	public void add(T elem){
-        Node<T> newLink = new Node<T>(elem);
-        if (first == null) first = newLink;
-        else if (elem.compareTo(first.data) == 0){// TODO no se si es comparar con 0 o con que, mirar doc
-            newLink.next = first;
-            first = newLink;
-        }else {
+        Node<T> nodoElem = new Node<T>(elem);
+        if (first == null) {
+            first = nodoElem;
+            last = nodoElem;
+        }else if (elem.compareTo(first.data) <= 0){// Si el elem es el menor
+            nodoElem.next = first;
+            first.prev = nodoElem;
+            first = nodoElem;
+        }else {//busqueda del nodo anterior al que se debe insertar
             Node<T> anterior = first;
             Node<T> temp = first;
-            while ((temp.next!=null) && (elem.compareTo(temp.data) == 1)){
+            while ((temp.next != null) && (elem.compareTo(temp.data) >= 0)){
                 anterior = temp;
                 temp = temp.next;
             }
-            if (elem.compareTo(temp.data) == 1){
+            if (elem.compareTo(temp.data) >= 0){//Se inserta detras del ultimo nodo
                 anterior = temp;
             }
-            newLink.next = anterior.next;
-            anterior.next = newLink.next;
+            nodoElem.next = anterior.next;
+            nodoElem.prev = anterior.prev;
+            anterior.next = nodoElem.next;
+            anterior.prev = nodoElem.prev;
         }
 	}
 
