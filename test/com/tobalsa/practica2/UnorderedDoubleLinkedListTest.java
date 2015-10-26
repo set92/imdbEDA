@@ -25,6 +25,7 @@ public class UnorderedDoubleLinkedListTest {
     @Test
     public void testAddToFront() throws Exception {
     	lista.addToFront("e");
+    	lista.visualizarNodos();
     	
     	lista.remove("e");
     	

@@ -2,34 +2,32 @@ package com.tobalsa.practica2;
 
 public class UnorderedDoubleLinkedList<T> extends DoubleLinkedList<T> implements UnorderedListADT<T> {
 
-	// aï¿½ade un elemento al comienzo
-	// COMPLETAR EL CODIGO Y CALCULAR EL COSTE
+	// Añade un elemento al comienzo
 	public void addToFront(T elem) {
         Node<T> newLink = new Node<T>(elem);
         newLink.next = first;
-
+        
         if (first != null) first.prev = newLink;
-
+        
         first = newLink;
 	}
 
-	// aÃ±ade un elemento al final
-	// COMPLETAR EL CODIGO Y CALCULAR EL COSTE
+	// Añade un elemento al final
 	public void addToRear(T elem) {
         Node<T> newLink = new Node<T>(elem);
         newLink.prev = last;
 
-        if (last != null) last.next = newLink;//al colocar un nuevo elemento tenemos qe linkarlo hacia atras y hacia delante
+        if (last != null) last.next = newLink; // Al colocar un nuevo elemento tenemos que linkarlo hacia atrás y hacia delante
 
         last = newLink;
-//lista vacia esta evaluada? TODO
+        //lista vacía esta evaluada? TODO
     }
 
-    // AÃ±ade elem detras de otro elemento concreto, target,  que ya se encuentra en la lista
+    // Añade elem detrás de otro elemento concreto, target,  que ya se encuentra en la lista
     // COMPLETAR OPCIONAL!
 	public void addAfter(T elem, T target) {
         Node<T> newLink = new Node<T>(elem);
-        Node<T> targetLink = new Node<T>(target);//no me gusta crear nodo, no deberia estar ya creado?
+        Node<T> targetLink = new Node<T>(target); //no me gusta crear nodo, no debería estar ya creado?
         newLink.next = targetLink.next;
         if (targetLink.next != null) targetLink.next.prev = newLink;
         targetLink.next = newLink;
