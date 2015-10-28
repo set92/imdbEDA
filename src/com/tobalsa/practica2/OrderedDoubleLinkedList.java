@@ -2,8 +2,6 @@ package com.tobalsa.practica2;
 
 public class OrderedDoubleLinkedList<T extends Comparable<T>> extends DoubleLinkedList<T> implements OrderedListADT<T> {
 
-	// COMPLETAR EL CODIGO Y CALCULAR EL COSTE
-    // TODO metodo incorrecto, corregir despues de preguntar, faltan los .prev
 	public void add(T elem){
         Node<T> nodoElem = new Node<T>(elem);
         if (first == null) {

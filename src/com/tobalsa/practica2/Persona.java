@@ -45,4 +45,4 @@ public class Persona implements Comparable<Persona> {
 		return name + " " + dni;
 	}
 	
-} // end Persona
+}

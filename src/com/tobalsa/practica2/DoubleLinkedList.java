@@ -2,8 +2,6 @@ package com.tobalsa.practica2;
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;
-import java.util.Stack;
-import java.util.function.Consumer;
 
 public class DoubleLinkedList<T> implements ListADT<T> {
 
@@ -62,29 +60,28 @@ public class DoubleLinkedList<T> implements ListADT<T> {
     }
 
     public T remove(T elem) {
-        Node<T> current = first;
-        boolean enc = false;
-
-        while ((current != null) && (!enc)){
-            enc = (current.data.equals(elem));
-            if (!enc) current = current.next; //Vamos recorriendo los nodos si no ha sido encontrado
-        }
-        if (enc){
-            if (current.equals(first)){//Es primer elemento
-                first = current.next;
-                if (current.next != null) current.next.prev = null;//porque lo ponemos en 1er pos y hay que quitarle su prev
-                this.count--;
-            }else if (current.next != null){//Esta en medio
-                current.prev.next = current.next;
-                current.next.prev = current.prev;
-                this.count--;
-            }else{//Es ultimo elemento
-                current.prev.next = null;
-                last = current.prev; //Actualizamos el indice al ultimo nodo
-                this.count--;
+        Node<T> node = first;
+        Node<T> temp;
+        if (first != null) {
+            if (node.data.equals(elem)) {
+                if (this.size() == 1) {
+                    last = null;
+                }
+                temp = first;
+                first = temp.next;
+                temp.prev = null;
+                temp.next = null;
+            } else {
+                temp = node.prev;
+                if (node == last) {
+                    last = temp;
+                }
+                node.next = null;
+                node.prev = null;
             }
+            this.count--;
+            return node.data;
         }else return null;
-        return current.data;
     }
 
     public T first() {
@@ -122,7 +119,7 @@ public class DoubleLinkedList<T> implements ListADT<T> {
     }
 
     public boolean isEmpty() {//Determina si la lista est� vac�a
-        return last == null;
+        return last==null;
     }
 
     public int size() {//Determina el n�mero de elementos de la lista
@@ -149,6 +146,11 @@ public class DoubleLinkedList<T> implements ListADT<T> {
             T item = current.data;
             current = current.next;
             return item;
+        }
+
+        @Override
+        public void remove() {
+
         }
     } // private class
 

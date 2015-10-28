@@ -9,7 +9,7 @@ public class UnorderedDoubleLinkedList<T> extends DoubleLinkedList<T> implements
 
         if (first != null) {
             first.prev = newLink;
-            newLink.next = first;
+            newLink.prev = last;
         }
         this.count++;
         first = newLink;
@@ -18,15 +18,15 @@ public class UnorderedDoubleLinkedList<T> extends DoubleLinkedList<T> implements
 	// A�ade un elemento al final
 	public void addToRear(T elem) {
         Node<T> newLink = new Node<T>(elem);
-        newLink.prev = last;
 
-        if (isEmpty()) first = newLink;
-        if (last != null) {
-            last.next = newLink; // Al colocar un nuevo elemento tenemos que linkarlo hacia atr�s y hacia delante
+        if (this.size()==0){
+            first = newLink;
+        }else{
+            last.next = newLink;
             newLink.prev = last;
         }
-        this.count++;
         last = newLink;
+        this.count++;
     }
 
     // A�ade elem detr�s de otro elemento concreto, target,  que ya se encuentra en la lista
