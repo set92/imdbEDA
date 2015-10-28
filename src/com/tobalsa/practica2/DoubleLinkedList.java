@@ -60,6 +60,25 @@ public class DoubleLinkedList<T> implements ListADT<T> {
     }
 
     public T remove(T elem) {
+//        Node<T> node = first;
+//        int i = 1;
+//        boolean enc = false;
+//        while (enc == false && i <= this.size()) {
+//            if (node.data.equals(elem)) {
+//                if (node == last) {
+//                    node.prev = null;
+//                } else {
+//                    node.prev.next = node.next;
+//                    node.next.prev = node.prev;
+//                }
+//                node.next = null;
+//                node.prev = null;
+//            }
+//            node = node.next;
+//            i++;
+//        }
+//        if (enc == false) return null;
+//        return node.data;
         Node<T> node = first;
         Node<T> temp;
         if (first != null) {
@@ -72,17 +91,22 @@ public class DoubleLinkedList<T> implements ListADT<T> {
                 temp.prev = null;
                 temp.next = null;
             } else {
-                temp = node.prev;
+                temp = node.next;
                 if (node == last) {
                     last = temp;
+                }else {
+                    temp.next.prev = node;
+                    node.next = temp.next;
                 }
-                node.next = null;
-                node.prev = null;
+//                node.next = null;
+//                node.prev = null;
             }
             this.count--;
             return node.data;
         }else return null;
     }
+
+
 
     public T first() {
         //Da acceso al primer elemento de la lista

@@ -56,7 +56,6 @@ public class UnorderedDoubleLinkedListTest {
     @Test
     public void testAddAfter() throws Exception {
 		System.out.println(lista.size());
-		lista.addToFront("x");
 		lista.addAfter("e", "x");
 		lista.visualizarNodos();
 		System.out.println(lista.size());
@@ -71,11 +70,19 @@ public class UnorderedDoubleLinkedListTest {
     	lista.addToRear("y");
     	lista.addToRear("z");
     	lista.addAfter("e", "x");
+		lista.visualizarNodos();
+		System.out.println(lista.size());
     	lista.remove("e");
     	lista.addAfter("e", "y");
+		lista.visualizarNodos();
+		System.out.println(lista.size());
     	lista.remove("e");
     	lista.addAfter("e", "z");
+		lista.visualizarNodos();
+		System.out.println(lista.size());
     	lista.remove("e");
     	lista.addAfter("e", "t");
+		lista.visualizarNodos();
+		System.out.println(lista.size());
     }
 }
