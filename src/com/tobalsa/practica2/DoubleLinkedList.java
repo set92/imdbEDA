@@ -59,53 +59,30 @@ public class DoubleLinkedList<T> implements ListADT<T> {
         }
     }
 
+    //Elimina un elemento concreto de la lista
+    // COMPLETAR EL CODIGO Y CALCULAR EL COSTE
     public T remove(T elem) {
-//        Node<T> node = first;
-//        int i = 1;
-//        boolean enc = false;
-//        while (enc == false && i <= this.size()) {
-//            if (node.data.equals(elem)) {
-//                if (node == last) {
-//                    node.prev = null;
-//                } else {
-//                    node.prev.next = node.next;
-//                    node.next.prev = node.prev;
-//                }
-//                node.next = null;
-//                node.prev = null;
-//            }
-//            node = node.next;
-//            i++;
-//        }
-//        if (enc == false) return null;
-//        return node.data;
         Node<T> node = first;
-        Node<T> temp;
-        if (first != null) {
-            if (node.data.equals(elem)) {
-                if (this.size() == 1) {
-                    last = null;
-                }
-                temp = first;
-                first = temp.next;
-                temp.prev = null;
-                temp.next = null;
-            } else {
-                temp = node.next;
-                if (node == last) {
-                    last = temp;
-                }else {
-                    temp.next.prev = node;
-                    node.next = temp.next;
-                }
-//                node.next = null;
-//                node.prev = null;
-            }
-            this.count--;
-            return node.data;
-        }else return null;
-    }
+        boolean enc = false;
 
+        while (node != null && !enc){
+            if (node.data.equals(elem)) enc = true;
+            else node = node.next;
+        }
+
+        if (node == null) return null;
+        elem = node.data;
+
+        if (node == first) elem = this.removeFirst();
+        else if (node == last) elem = this.removeLast();
+        else {
+            node.next.prev = node.prev;
+            node.prev.next = node.next;
+            count--;
+        }
+
+        return elem;
+    }
 
 
     public T first() {
