@@ -5,14 +5,15 @@ public class UnorderedDoubleLinkedList<T> extends DoubleLinkedList<T> implements
 	// Añade un elemento al comienzo
 	public void addToFront(T elem) {
         Node<T> newLink = new Node<T>(elem);
-        newLink.next = first;
 
-        if (first != null) {
-            first.prev = newLink;
-            newLink.prev = last;
+        if (this.size()==0){
+            last=newLink;
+        }else {
+            first.prev=newLink;
+            newLink.next=first;
         }
+        first=newLink;
         this.count++;
-        first = newLink;
 	}
 
 	// Añade un elemento al final
@@ -57,4 +58,11 @@ public class UnorderedDoubleLinkedList<T> extends DoubleLinkedList<T> implements
         }
     }
 
+    public void comprobacionInversa(){
+        Node<T> current = last;
+        for (int i = this.size(); i>0; i--){
+            System.out.println(current.data);
+            current = current.prev;
+        }
+    }
 }

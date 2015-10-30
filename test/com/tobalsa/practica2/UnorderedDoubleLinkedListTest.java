@@ -25,17 +25,14 @@ public class UnorderedDoubleLinkedListTest {
     public void testAddToFront() throws Exception {
     	lista.addToFront("e");
     	lista.remove("e");
-    	
     	lista.addToFront("x");
     	lista.addToFront("e");
     	lista.remove("x");
     	lista.remove("e");
-    	
     	lista.addToFront("z");
     	lista.addToFront("y");
     	lista.addToFront("x");
-    	lista.addToFront("e");
-
+		lista.comprobacionInversa();
     }
 
     @Test
@@ -50,39 +47,28 @@ public class UnorderedDoubleLinkedListTest {
     	lista.addToRear("y");
     	lista.addToRear("z");
     	lista.addToRear("e");
+		lista.comprobacionInversa();
 
     }
 
     @Test
     public void testAddAfter() throws Exception {
-		System.out.println(lista.size());
 		lista.addAfter("e", "x");
-		lista.visualizarNodos();
-		System.out.println(lista.size());
     	lista.addToFront("x");
     	lista.addAfter("e", "x");
     	lista.addAfter("e", "y");
-		lista.visualizarNodos();
-		System.out.println(lista.size());
     	lista.remove("x");
     	lista.remove("e");
     	lista.addToRear("x");
     	lista.addToRear("y");
     	lista.addToRear("z");
     	lista.addAfter("e", "x");
-		lista.visualizarNodos();
-		System.out.println(lista.size());
     	lista.remove("e");
     	lista.addAfter("e", "y");
-		lista.visualizarNodos();
-		System.out.println(lista.size());
     	lista.remove("e");
     	lista.addAfter("e", "z");
-		lista.visualizarNodos();
-		System.out.println(lista.size());
     	lista.remove("e");
     	lista.addAfter("e", "t");
-		lista.visualizarNodos();
-		System.out.println(lista.size());
+		lista.comprobacionInversa();
     }
 }
