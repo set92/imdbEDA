@@ -41,7 +41,7 @@ public class ActorTest {
 		a1.getListaP().eliminarPelicula(p2);
 		a1.mostrarApariciones();
 		a1.getListaP().anadirPelicula(p3);
-		a2.mostrarApariciones();		
+		a2.mostrarApariciones();
 	}
 
 }
