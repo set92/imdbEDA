@@ -9,12 +9,13 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.TreeMap;
 import java.util.regex.Pattern;
 
 public class LectorFichero {
 	public void cargar(String ruta) {
 		CatalogoActores miCatalogoActores = CatalogoActores.getCatalogoActores();
-		Cartelera miCartelera = Cartelera.getCartelera();
+		TreeMap<String, Pelicula> miCartelera = new TreeMap<String, Pelicula>();
 		Actor a;
 		Pelicula p;
 		ListaPeliculas apariciones;
@@ -39,10 +40,10 @@ public class LectorFichero {
 				
 				for (int i = 1; i < palabras.length; i++) {
 					titulo = palabras[i];
-					p = miCartelera.buscarPelicula(titulo);
+					p = miCartelera.get(titulo);
 					if (p == null) {
 						p = new Pelicula(titulo);
-						miCartelera.insertarPelicula(p);
+						miCartelera.put(p.getTitulo(), p);
 					}
 					apariciones.insertarPelicula(p);
 					p.insertarReparto(a);
@@ -55,7 +56,7 @@ public class LectorFichero {
 			}
 			br.close();
 
-			for (Pelicula pelicula : miCartelera.conversionLista().values())
+			for (Pelicula pelicula : miCartelera.values())
 				CatalogoPeliculas.getCatalogoPeliculas().getLista().insertarPelicula(pelicula);
 
             GraphHash gh = new GraphHash();

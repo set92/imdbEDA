@@ -1,6 +1,5 @@
 package com.tobalsa.practica3.graphs;
 
-import com.tobalsa.practica3.modelo.Actor;
 import com.tobalsa.practica3.modelo.CatalogoActores;
 
 import java.util.ArrayList;
@@ -11,21 +10,22 @@ public class GraphHash {
 	HashMap<String, ArrayList<String>> g;
 	
 	public void crearGrafo(CatalogoActores miCatalogoActores){
-        g=new HashMap<String, ArrayList<String>>();
+        g = new HashMap<String, ArrayList<String>>();
+        String apellidoActor, tituloPelicula;
         for (int i = 0; i < miCatalogoActores.getLista().obtenerNumActores(); i++) {
-            String apellidoActor = miCatalogoActores.getLista().obtenerPosicion(i).getApellidos();
-
+            apellidoActor = miCatalogoActores.getLista().obtenerPosicion(i).getApellidos();
             g.put(apellidoActor, new ArrayList<String>());
+            
             for (int j = 0; j < miCatalogoActores.getLista().obtenerPosicion(i).getApariciones().obtenerNumPeliculas(); j++) {
-                if (!g.containsKey(miCatalogoActores.getLista().obtenerPosicion(i).getApariciones().obtenerPosicion(j).getTitulo())){
-                    g.put(miCatalogoActores.getLista().obtenerPosicion(i).getApariciones().obtenerPosicion(j).getTitulo(),new ArrayList<String>());
+            	tituloPelicula = miCatalogoActores.getLista().obtenerPosicion(i).getApariciones().obtenerPosicion(j).getTitulo();
+                if (!g.containsKey(tituloPelicula)){
+                    g.put(tituloPelicula, new ArrayList<String>());
                 }
-                //insertar pelicula
+                // Insertar apariciones
                 ArrayList<String> apariciones = g.get(apellidoActor);
-                apariciones.add(miCatalogoActores.getLista().obtenerPosicion(i).getApariciones().obtenerPosicion(j).getTitulo());
-
-                //insertar reparto
-                ArrayList<String> reparto = g.get(miCatalogoActores.getLista().obtenerPosicion(i).getApariciones().obtenerPosicion(j).getTitulo());
+                apariciones.add(tituloPelicula);
+                // Insertar reparto
+                ArrayList<String> reparto = g.get(tituloPelicula);
                 reparto.add(apellidoActor);
             }
         }
