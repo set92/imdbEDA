@@ -61,7 +61,10 @@ public class LectorFichero {
 
             GraphHash gh = new GraphHash();
             gh.crearGrafo(miCatalogoActores);
-            
+
+
+            System.out.println(gh.estanConectados("Al Pacino","Robert De Niro"));
+            System.out.println(gh.estanConectadosOpc("Al Pacino","Robert De Niro"));
 
 		} catch (FileNotFoundException e) {
 			System.out.println("El fichero seleccionado no existe");

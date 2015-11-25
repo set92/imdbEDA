@@ -1,6 +1,8 @@
 package com.tobalsa.practica3.graphs;
 
 import com.tobalsa.practica1.actores.ListaActores;
+import com.tobalsa.practica3.modelo.Actor;
+import com.tobalsa.practica3.modelo.Pelicula;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -17,7 +19,18 @@ public class Graph {
 		//       Los nodos son nombres de actores y títulos de películas
 		
 		// Paso 1: llenar “th”
-            // COMPLETAR CÓDIGO
+//        th = new HashMap<String, Integer>();
+//        ArrayList<Actor> acts = lActores.susActores(); -> devuelve la lista de actores
+//        int cont = 0;
+//        for(Actor a : acts) {
+//            th.put(a.getNombre(), cont);
+//            cont++;
+//            for(Pelicula p : getPelis()) {
+//                if (th.containsKey(p.getTitulo())){
+//                    th.put(p.getTitulo(), cont);
+//                }
+//            }
+//        }
 
             // Paso 2: llenar “keys”
 		keys = new String[th.size()];
