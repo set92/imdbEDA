@@ -14,24 +14,28 @@ public class GraphHash {
 
         ListaActores actores = miCatalogoActores.getLista();
         Actor a;
-        String apellidoActor, tituloPelicula;
+        String nombreActor, tituloPelicula;
 
         for (int i = 0; i < actores.obtenerNumActores(); i++) {
-            a = actores.obtenerPosicion(i);
-            apellidoActor = a.devolverNombreCompleto();
-            g.put(apellidoActor, new ArrayList<String>());
+            a = actores.obtenerPosicion(i);//esta y la linea anterior te las quitas si haces forEach
+            nombreActor = a.devolverNombreCompleto();
+            g.put(nombreActor, new ArrayList<String>());
 
             for (int j = 0; j < a.getApariciones().obtenerNumPeliculas(); j++) {
                 tituloPelicula = a.getApariciones().obtenerPosicion(j).getTitulo();
                 if (!g.containsKey(tituloPelicula)){
                     g.put(tituloPelicula, new ArrayList<String>());
                 }
+//TODO Funciona pero lo que se quiere no es decir que los valores del grafo son apariciones y reparto?
+//entonces seria mas logico tener un solo arraylist y actualizar el grafo de la forma
+//g.get(nombreActor, g.get(j)+apariciones) porque tal como planteado no haces nada con los arraylist
+
                 // Insertar apariciones
-                ArrayList<String> apariciones = g.get(apellidoActor);
+                ArrayList<String> apariciones = g.get(nombreActor);
                 apariciones.add(tituloPelicula);
                 // Insertar reparto
                 ArrayList<String> reparto = g.get(tituloPelicula);
-                reparto.add(apellidoActor);
+                reparto.add(nombreActor);
             }
         }
     }
@@ -73,73 +77,39 @@ public class GraphHash {
 
     public ArrayList<String> devolverCaminoConectado(String a1,String a2){
         boolean hayCamino = false;
-        if(!g.containsKey(a1) || !g.containsKey(a2)) return null;
-        else if(g.get(a1).contains(a2)) return null;
+        ArrayList<String> dev;
+
+        if(!g.containsKey(a1) || !g.containsKey(a2)) return new ArrayList<String>();
         else {
             String actual;
             Queue<String> porExaminar = new ArrayDeque<String>();
-            porExaminar.add(a1);
             HashMap<String,String> examinados = new HashMap<String,String>();
+
+            porExaminar.add(a1);
             examinados.put(a1,null);
 
             while(!hayCamino && !porExaminar.isEmpty()) {
                 actual = porExaminar.poll();
-
                 if(actual.equals(a2)) hayCamino = true;
                 else {
                     for (String x : g.get(actual)) {
-
                         if(!examinados.containsKey(x)) {
                             porExaminar.add(x);
-                            examinados.put(x,actual);//TODO Preguntar koldo si es correcto, falta camino por recorrer
+                            examinados.put(x,actual);
                         }
                     }
                 }
             }
+            dev = new ArrayList<String>();
+            String actu2 = a2;//variable para no cargarse la de entrada
+            while (actu2 != null){
+                dev.add(actu2);
+                actu2 = examinados.get(actu2);
+            }
         }
-        return null;
+        Collections.reverse(dev);
+        return dev;
     }
-    
-    public ArrayList<String> estanConectadosOpc(String a1, String a2){
-        ArrayList<String> listaConectados = new ArrayList<String>();
-        String fn = a2;
 
-        boolean conectados = false;
-        if(!g.containsKey(a1) || !g.containsKey(a2)) {} //mirad a ver si lo quereis cambiar, debe devolver null
-        else if (a1.equals(a2)|| g.get(a1).contains(a2))
-        {
-            listaConectados.add(a1);
-            listaConectados.add(a2);
-        }
-        else {
-            HashSet<String> examinado = new HashSet<String>();
-            Queue<String> porExaminar = new ArrayDeque<String>();
-            HashMap<String,String> camino = new HashMap<String,String>(); //para poner la procedencia de los objetos
-            porExaminar.add(a1);
-            String act;
-            ArrayList<String> lista;
-            camino.put(a1, "-1"); //para que se pare el while del HashMap al encontrar a1
-            while (!conectados && !porExaminar.isEmpty()){
-                act = porExaminar.remove();
-                examinado.add(act);
-                if (act.equals(a2)) conectados = true;
-                else{
-                    lista = g.get(act);
-                    for (int i=0; i<lista.size(); i++){
-                        if (!examinado.contains(act)){
-                            porExaminar.add(lista.get(i));
-                            camino.put(lista.get(i),act); //por cada elemento se añade como objeto el elemento del que viene
-                        }
-                    }
-                }
-            }
-            while(!camino.get(fn).equals("-1")){ //-1 es el objeto de a1
-                listaConectados.add(camino.get(fn));
-                fn = camino.get(fn); //para que en la siguiente vuelta la key 'fn' sea el actual objeto de 'fn'
-            }
-            //TODO queda recorrer la lista al revés para tener el camino de a1 a a2 y no de a2 a a1
-        }
-        return listaConectados;
-    }
 }
 

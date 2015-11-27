@@ -64,7 +64,7 @@ public class LectorFichero {
 
 
             System.out.println(gh.estanConectados("Al Pacino","Robert De Niro"));
-            System.out.println(gh.estanConectadosOpc("Al Pacino","Robert De Niro"));
+            System.out.println(gh.devolverCaminoConectado("Al Pacino","Robert De Niro"));
 
 		} catch (FileNotFoundException e) {
 			System.out.println("El fichero seleccionado no existe");
@@ -74,13 +74,11 @@ public class LectorFichero {
 	}
 
 	public void guardar(String ruta) {
-		CatalogoActores miCatalogoActores = CatalogoActores
-				.getCatalogoActores();
+		CatalogoActores miCatalogoActores = CatalogoActores.getCatalogoActores();
 		try {
 			BufferedWriter bw = new BufferedWriter(new FileWriter(ruta));
 
-			for (int i = 0; i < miCatalogoActores.getLista()
-					.obtenerNumActores(); i++) {
+			for (int i = 0; i < miCatalogoActores.getLista().obtenerNumActores(); i++) {
 				Actor a = miCatalogoActores.getLista().obtenerPosicion(i);
 				String linea = a.getApellidos() + ", " + a.getNombre();
 
@@ -91,7 +89,7 @@ public class LectorFichero {
 
 				bw.write(linea);
 				bw.newLine();
-				bw.flush(); // Limpiar cach�
+				bw.flush(); // Limpiar cache
 			}
 			bw.close();
 		} catch (IOException e) {
