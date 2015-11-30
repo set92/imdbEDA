@@ -1,14 +1,9 @@
-package com.tobalsa.practica3.controlador;
+package com.tobalsa.practica4.controlador;
 
-import com.tobalsa.practica3.graphs.GraphHash;
-import com.tobalsa.practica3.modelo.*;
+import com.tobalsa.practica4.graphs.GraphHash;
+import com.tobalsa.practica4.modelo.*;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.Random;
 import java.util.TreeMap;
 import java.util.regex.Pattern;

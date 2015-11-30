@@ -1,8 +1,8 @@
-package com.tobalsa.practica3.graphs;
+package com.tobalsa.practica4.graphs;
 
-import com.tobalsa.practica3.modelo.Actor;
-import com.tobalsa.practica3.modelo.ListaActores;
-import com.tobalsa.practica3.modelo.CatalogoActores;
+import com.tobalsa.practica4.modelo.Actor;
+import com.tobalsa.practica4.modelo.CatalogoActores;
+import com.tobalsa.practica4.modelo.ListaActores;
 
 import java.util.*;
 
