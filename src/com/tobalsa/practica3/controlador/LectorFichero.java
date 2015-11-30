@@ -65,7 +65,7 @@ public class LectorFichero {
             gh = new GraphHash();
             gh.crearGrafo(miCatalogoActores);
 
-            for (int i = 0; i < 100; i++) {
+            for (int i = 0; i < 10; i++) {
 
                 a1 = miCatalogoActores.getLista().obtenerPosicion(rnd.nextInt(miCatalogoActores.getLista().obtenerNumActores()-1 ));
                 a2 = miCatalogoActores.getLista().obtenerPosicion(rnd.nextInt(miCatalogoActores.getLista().obtenerNumActores()-1 ));

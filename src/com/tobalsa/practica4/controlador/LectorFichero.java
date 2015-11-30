@@ -12,7 +12,7 @@ public class LectorFichero {
 	public void cargar(String ruta) {
 		CatalogoActores miCatalogoActores = CatalogoActores.getCatalogoActores();
 		TreeMap<String, Pelicula> miCartelera = new TreeMap<String, Pelicula>();
-		Actor a,a1,a2;
+		Actor a;
 		Pelicula p;
 		ListaPeliculas apariciones;
 		String[] palabras, actor;
@@ -56,23 +56,11 @@ public class LectorFichero {
 				CatalogoPeliculas.getCatalogoPeliculas().getLista().insertarPelicula(pelicula);
 
             GraphHash gh;
-            Random rnd = new Random();
+
             gh = new GraphHash();
             gh.crearGrafo(miCatalogoActores);
 
-            for (int i = 0; i < 100; i++) {
-
-                a1 = miCatalogoActores.getLista().obtenerPosicion(rnd.nextInt(miCatalogoActores.getLista().obtenerNumActores()-1 ));
-                a2 = miCatalogoActores.getLista().obtenerPosicion(rnd.nextInt(miCatalogoActores.getLista().obtenerNumActores()-1 ));
-
-                System.out.println(a1.devolverNombreCompleto()+", "+a2.devolverNombreCompleto());
-
-                //System.out.println(gh.estanConectados("Al Pacino","Robert De Niro"));
-                if(gh.estanConectados(a1.devolverNombreCompleto(), a2.devolverNombreCompleto() ))
-                    System.out.println(gh.devolverCaminoConectado(a1.devolverNombreCompleto() ,a2.devolverNombreCompleto() ));
-
-            }
-
+            gh.gradoRelaciones(1);
 
 		} catch (FileNotFoundException e) {
 			System.out.println("El fichero seleccionado no existe");

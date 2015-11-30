@@ -26,9 +26,6 @@ public class GraphHash {
                 if (!g.containsKey(tituloPelicula)){
                     g.put(tituloPelicula, new ArrayList<String>());
                 }
-//TODO Funciona pero lo que se quiere no es decir que los valores del grafo son apariciones y reparto?
-//entonces seria mas logico tener un solo arraylist y actualizar el grafo de la forma
-//g.get(nombreActor, g.get(j)+apariciones) porque tal como planteado no haces nada con los arraylist
 
                 // Insertar apariciones
                 ArrayList<String> apariciones = g.get(nombreActor);
@@ -70,13 +67,41 @@ public class GraphHash {
                             porExaminar.add(x);
                             examinados.add(x);
                         }
-
                     }
                 }
             }
         }
         return hayCamino;
     }
+
+    public double gradoRelaciones(int iteraciones){
+        Random rnd = new Random();
+        List<String> keys = new ArrayList<String>(g.keySet());
+        String randomKey;
+        String randomKey2;
+
+        //TODO Poner el if aqui y asi no hace el for a no ser que esten conectados?
+        for (int i = 0; i < iteraciones; i++) {
+            randomKey = keys.get( rnd.nextInt(keys.size()) );
+            randomKey2 = keys.get( rnd.nextInt(keys.size()) );
+
+            System.out.println(randomKey+", "+randomKey2);
+
+   //       //System.out.println(gh.estanConectados("Al Pacino","Robert De Niro"));
+            if(estanConectados(randomKey, randomKey2 )){
+                ArrayList<String> temp = devolverCaminoConectado(randomKey,randomKey2);
+                return temp.size() - 2;//Si estan conectado minimo estaran ellos 2, asi que les quitamos y miramos
+                //cuantos elementos intermetidos hay
+            }
+        }
+        return 0;//Si hubiera metido 0 iteraciones no se habria recorrido ninguna vez o no estarian conectados
+    }
+
+    public double centralidad(Actor a){
+
+
+    }
+
 
     public ArrayList<String> devolverCaminoConectado(String a1,String a2){
         boolean hayCamino = false;

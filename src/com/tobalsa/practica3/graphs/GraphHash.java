@@ -17,7 +17,7 @@ public class GraphHash {
         String nombreActor, tituloPelicula;
 
         for (int i = 0; i < actores.obtenerNumActores(); i++) {
-            a = actores.obtenerPosicion(i);//esta y la linea anterior te las quitas si haces forEach
+            a = actores.obtenerPosicion(i);
             nombreActor = a.devolverNombreCompleto();
             g.put(nombreActor, new ArrayList<String>());
 
@@ -26,9 +26,6 @@ public class GraphHash {
                 if (!g.containsKey(tituloPelicula)){
                     g.put(tituloPelicula, new ArrayList<String>());
                 }
-//TODO Funciona pero lo que se quiere no es decir que los valores del grafo son apariciones y reparto?
-//entonces seria mas logico tener un solo arraylist y actualizar el grafo de la forma
-//g.get(nombreActor, g.get(j)+apariciones) porque tal como planteado no haces nada con los arraylist
 
                 // Insertar apariciones
                 ArrayList<String> apariciones = g.get(nombreActor);
