@@ -107,8 +107,12 @@ public class GraphHash {
                 actu2 = examinados.get(actu2);
             }
         }
-        Collections.reverse(dev);
-        return dev;
+        if (!hayCamino) return new ArrayList<String>();
+        else {
+            Collections.reverse(dev);
+            return dev;
+        }
+
     }
 
 }
