@@ -76,29 +76,25 @@ public class GraphHash {
 
     public double gradoRelaciones(int iteraciones){
         Random rnd = new Random();
-        List<String> keys = new ArrayList<String>(g.keySet());
-        String randomKey;
-        String randomKey2;
+        ListaActores lstAct = CatalogoActores.getCatalogoActores().getLista();
+        String randomKey, randomKey2;
+        double acum=0;
 
-        //TODO Poner el if aqui y asi no hace el for a no ser que esten conectados?
         for (int i = 0; i < iteraciones; i++) {
-            randomKey = keys.get( rnd.nextInt(keys.size()) );
-            randomKey2 = keys.get( rnd.nextInt(keys.size()) );
+            randomKey = lstAct.obtenerPosicion( rnd.nextInt(lstAct.obtenerNumActores()) ).devolverNombreCompleto();
+            randomKey2 = lstAct.obtenerPosicion( rnd.nextInt(lstAct.obtenerNumActores()) ).devolverNombreCompleto();
 
-            System.out.println(randomKey+", "+randomKey2);
-
-   //       //System.out.println(gh.estanConectados("Al Pacino","Robert De Niro"));
             if(estanConectados(randomKey, randomKey2 )){
                 ArrayList<String> temp = devolverCaminoConectado(randomKey,randomKey2);
-                return temp.size() - 2;//Si estan conectado minimo estaran ellos 2, asi que les quitamos y miramos
-                //cuantos elementos intermetidos hay
+                acum += temp.size() / 2;
             }
         }
-        return 0;//Si hubiera metido 0 iteraciones no se habria recorrido ninguna vez o no estarian conectados
+        return acum/iteraciones;
     }
 
     public double centralidad(Actor a){
-
+        
+        return 0;
 
     }
 
