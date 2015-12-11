@@ -98,6 +98,49 @@ public class GraphHash {
 
     }
 
+    public ArrayList<String> losDeMasCentralidad(int n){
+        Random rnd = new Random();
+        ListaActores lstAct = CatalogoActores.getCatalogoActores().getLista();
+        HashMap<String, Integer> apariciones = new HashMap<String, Integer>();
+        //Rellenar hashmap con actores
+        for (int i = 0; i < lstAct.obtenerNumActores(); i++) {
+            apariciones.put(lstAct.obtenerPosicion(i).devolverNombreCompleto(),0);
+        }
+
+        ArrayList<String> temp = new ArrayList<String>();
+        String randomKey, randomKey2, nombre;
+        for (int i = 0; i < 10; i++) {
+            randomKey = lstAct.obtenerPosicion( rnd.nextInt(lstAct.obtenerNumActores()) ).devolverNombreCompleto();
+            randomKey2 = lstAct.obtenerPosicion( rnd.nextInt(lstAct.obtenerNumActores()) ).devolverNombreCompleto();
+
+            if(estanConectados(randomKey, randomKey2 )){
+                temp = devolverCaminoConectado(randomKey,randomKey2);
+                for (int j = 0; j < temp.size(); j++) {
+                    nombre = temp.get(j);
+                    if (apariciones.containsKey(nombre)) {
+                        apariciones.put(nombre, apariciones.get(nombre) + 1);
+                    }
+                }
+            }
+        }
+        //Para sacar los de mayores centralidad
+        temp.clear();
+        for (int i = 0; i < n; i++) {
+            HashMap.Entry<String, Integer> masCentral = null;
+            for (HashMap.Entry<String, Integer> entry : apariciones.entrySet()) {
+                if (masCentral == null || entry.getValue().compareTo(masCentral.getValue()) > 0) {
+                    masCentral = entry;
+                    apariciones.remove(entry);
+                }
+            }
+            temp.add(masCentral.getKey());
+        }
+
+
+
+        return temp;
+    }
+
 
     public ArrayList<String> devolverCaminoConectado(String a1,String a2){
         boolean hayCamino = false;
