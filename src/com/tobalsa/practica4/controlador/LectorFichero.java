@@ -60,17 +60,8 @@ public class LectorFichero {
             gh = new GraphHash();
             gh.crearGrafo(miCatalogoActores);
 
-            System.out.println(gh.losDeMasCentralidad(2));
-            //Prueba de metodo gradoRelaciones
-//            double acum=0;
-//            int count=100, numRelaciones=200, count2;
-//            count2 = count;
-//            while (count>0){
-//                acum += gh.gradoRelaciones(numRelaciones);
-//                count--;
-//            }
-//            System.out.println("La media es: "+acum/count2);
-
+            gh.gradoRelaciones();
+            
 		} catch (FileNotFoundException e) {
 			System.out.println("El fichero seleccionado no existe");
 		} catch (IOException e) {

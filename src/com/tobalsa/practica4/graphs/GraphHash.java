@@ -73,75 +73,7 @@ public class GraphHash {
         }
         return hayCamino;
     }
-
-    public double gradoRelaciones(int iteraciones){
-        Random rnd = new Random();
-        ListaActores lstAct = CatalogoActores.getCatalogoActores().getLista();
-        String randomKey, randomKey2;
-        double acum=0;
-
-        for (int i = 0; i < iteraciones; i++) {
-            randomKey = lstAct.obtenerPosicion( rnd.nextInt(lstAct.obtenerNumActores()) ).devolverNombreCompleto();
-            randomKey2 = lstAct.obtenerPosicion( rnd.nextInt(lstAct.obtenerNumActores()) ).devolverNombreCompleto();
-
-            if(estanConectados(randomKey, randomKey2 )){
-                ArrayList<String> temp = devolverCaminoConectado(randomKey,randomKey2);
-                acum += temp.size() / 2;
-            }
-        }
-        return acum/iteraciones;
-    }
-
-    public double centralidad(Actor a){
-        
-        return 0;
-
-    }
-
-    public ArrayList<String> losDeMasCentralidad(int n){
-        Random rnd = new Random();
-        ListaActores lstAct = CatalogoActores.getCatalogoActores().getLista();
-        HashMap<String, Integer> apariciones = new HashMap<String, Integer>();
-        //Rellenar hashmap con actores
-        for (int i = 0; i < lstAct.obtenerNumActores(); i++) {
-            apariciones.put(lstAct.obtenerPosicion(i).devolverNombreCompleto(),0);
-        }
-
-        ArrayList<String> temp = new ArrayList<String>();
-        String randomKey, randomKey2, nombre;
-        for (int i = 0; i < 10; i++) {
-            randomKey = lstAct.obtenerPosicion( rnd.nextInt(lstAct.obtenerNumActores()) ).devolverNombreCompleto();
-            randomKey2 = lstAct.obtenerPosicion( rnd.nextInt(lstAct.obtenerNumActores()) ).devolverNombreCompleto();
-
-            if(estanConectados(randomKey, randomKey2 )){
-                temp = devolverCaminoConectado(randomKey,randomKey2);
-                for (int j = 0; j < temp.size(); j++) {
-                    nombre = temp.get(j);
-                    if (apariciones.containsKey(nombre)) {
-                        apariciones.put(nombre, apariciones.get(nombre) + 1);
-                    }
-                }
-            }
-        }
-        //Para sacar los de mayores centralidad
-        temp.clear();
-        for (int i = 0; i < n; i++) {
-            HashMap.Entry<String, Integer> masCentral = null;
-            for (HashMap.Entry<String, Integer> entry : apariciones.entrySet()) {
-                if (masCentral == null || entry.getValue().compareTo(masCentral.getValue()) > 0) {
-                    masCentral = entry;
-                    apariciones.remove(entry);
-                }
-            }
-            temp.add(masCentral.getKey());
-        }
-
-
-
-        return temp;
-    }
-
-
+    
     public ArrayList<String> devolverCaminoConectado(String a1,String a2){
         boolean hayCamino = false;
         ArrayList<String> dev;
@@ -177,6 +109,84 @@ public class GraphHash {
         Collections.reverse(dev);
         return dev;
     }
+    
+    public double gradoRelaciones() {
+    	int nPruebas = 100;
+    	double g0, g1 = 0, E_ABS = 0.0001;
+    	// g0 -> grado prueba anterior
+    	// g1 -> grado prueba actual
+    	do {
+    		g0 = g1;
+    		g1 = calcularGrado(nPruebas); // TODO Asignar valor correcto a g1
+    		System.out.println("Grado actual (" + nPruebas + " pruebas): " + g1 + 
+    				" (error actual: " + Math.abs(g0 - g1) + ")");
+    		nPruebas += nPruebas;
+		} while(Math.abs(g0 - g1) > E_ABS); // Cálculo del error absoluto
+        return g1;
+    }
+    
+    private double calcularGrado(int nPruebas) {
+    	ListaActores lstAct = CatalogoActores.getCatalogoActores().getLista();
+    	Random rnd = new Random();
+    	String a1, a2;
+    	double acum = 0;
+    	
+    	for (int i = 0; i < nPruebas; i++) {
+            a1 = lstAct.obtenerPosicion(rnd.nextInt(lstAct.obtenerNumActores())).devolverNombreCompleto();
+            a2 = lstAct.obtenerPosicion(rnd.nextInt(lstAct.obtenerNumActores())).devolverNombreCompleto();
+            
+            if(estanConectados(a1, a2)){
+                ArrayList<String> temp = devolverCaminoConectado(a1, a2);
+                acum += temp.size() / 2; // TODO ¿Entre 2 o también hay que restar 1?
+            }
+        }
+    	return acum / nPruebas;
+    }
+    
+    public double centralidad(Actor a){
+        
+        return 0;
 
+    }
+
+    public ArrayList<String> losDeMasCentralidad(int n){
+        Random rnd = new Random();
+        ListaActores lstAct = CatalogoActores.getCatalogoActores().getLista();
+        HashMap<String, Integer> apariciones = new HashMap<String, Integer>();
+        //Rellenar HashMap con actores
+        for (int i = 0; i < lstAct.obtenerNumActores(); i++) {
+            apariciones.put(lstAct.obtenerPosicion(i).devolverNombreCompleto(),0);
+        }
+        
+        ArrayList<String> temp = new ArrayList<String>();
+        String randomKey, randomKey2, nombre;
+        for (int i = 0; i < 10; i++) {
+            randomKey = lstAct.obtenerPosicion( rnd.nextInt(lstAct.obtenerNumActores()) ).devolverNombreCompleto();
+            randomKey2 = lstAct.obtenerPosicion( rnd.nextInt(lstAct.obtenerNumActores()) ).devolverNombreCompleto();
+
+            if(estanConectados(randomKey, randomKey2 )){
+                temp = devolverCaminoConectado(randomKey,randomKey2);
+                for (int j = 0; j < temp.size(); j++) {
+                    nombre = temp.get(j);
+                    if (apariciones.containsKey(nombre)) {
+                        apariciones.put(nombre, apariciones.get(nombre) + 1);
+                    }
+                }
+            }
+        }
+        //Para sacar los de mayores centralidad
+        temp.clear();
+        for (int i = 0; i < n; i++) {
+            HashMap.Entry<String, Integer> masCentral = null;
+            for (HashMap.Entry<String, Integer> entry : apariciones.entrySet()) {
+                if (masCentral == null || entry.getValue().compareTo(masCentral.getValue()) > 0) {
+                    masCentral = entry;
+                    apariciones.remove(entry);
+                }
+            }
+            temp.add(masCentral.getKey());
+        }
+        return temp;
+    }
 }
 
