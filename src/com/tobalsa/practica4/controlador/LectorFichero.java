@@ -60,8 +60,8 @@ public class LectorFichero {
             gh = new GraphHash();
             gh.crearGrafo(miCatalogoActores);
 
-            gh.gradoRelaciones();
-            
+            //gh.gradoRelaciones();
+            gh.losDeMasCentralidad(10);
 		} catch (FileNotFoundException e) {
 			System.out.println("El fichero seleccionado no existe");
 		} catch (IOException e) {

@@ -117,11 +117,10 @@ public class GraphHash {
     	// g1 -> grado prueba actual
     	do {
     		g0 = g1;
-    		g1 = calcularGrado(nPruebas); // TODO Asignar valor correcto a g1
-    		System.out.println("Grado actual (" + nPruebas + " pruebas): " + g1 + 
-    				" (error actual: " + Math.abs(g0 - g1) + ")");
+    		g1 = calcularGrado(nPruebas);
+    		// System.out.println("Grado actual (" + nPruebas + " pruebas): " + g1 +	" (error actual: " + Math.abs(g0 - g1) + ")");
     		nPruebas += nPruebas;
-		} while(Math.abs(g0 - g1) > E_ABS); // Cálculo del error absoluto
+		} while(Math.abs(g0 - g1) > E_ABS); // Cï¿½lculo del error absoluto
         return g1;
     }
     
@@ -130,17 +129,19 @@ public class GraphHash {
     	Random rnd = new Random();
     	String a1, a2;
     	double acum = 0;
+        int numCamino = 0;
     	
     	for (int i = 0; i < nPruebas; i++) {
             a1 = lstAct.obtenerPosicion(rnd.nextInt(lstAct.obtenerNumActores())).devolverNombreCompleto();
             a2 = lstAct.obtenerPosicion(rnd.nextInt(lstAct.obtenerNumActores())).devolverNombreCompleto();
-            
-            if(estanConectados(a1, a2)){
-                ArrayList<String> temp = devolverCaminoConectado(a1, a2);
-                acum += temp.size() / 2; // TODO ¿Entre 2 o también hay que restar 1?
+            ArrayList<String> temp = devolverCaminoConectado(a1, a2);
+
+            if(temp.size() > 0){
+                acum += temp.size() / 2;
+                numCamino++;
             }
         }
-    	return acum / nPruebas;
+    	return acum / numCamino;
     }
     
     public double centralidad(Actor a){
@@ -149,7 +150,7 @@ public class GraphHash {
 
     }
 
-    public ArrayList<String> losDeMasCentralidad(int n){
+    public ArrayList<Pareja> losDeMasCentralidad(int n){
         Random rnd = new Random();
         ListaActores lstAct = CatalogoActores.getCatalogoActores().getLista();
         HashMap<String, Integer> apariciones = new HashMap<String, Integer>();
@@ -157,36 +158,59 @@ public class GraphHash {
         for (int i = 0; i < lstAct.obtenerNumActores(); i++) {
             apariciones.put(lstAct.obtenerPosicion(i).devolverNombreCompleto(),0);
         }
-        
+
         ArrayList<String> temp = new ArrayList<String>();
         String randomKey, randomKey2, nombre;
         for (int i = 0; i < 10; i++) {
             randomKey = lstAct.obtenerPosicion( rnd.nextInt(lstAct.obtenerNumActores()) ).devolverNombreCompleto();
             randomKey2 = lstAct.obtenerPosicion( rnd.nextInt(lstAct.obtenerNumActores()) ).devolverNombreCompleto();
 
-            if(estanConectados(randomKey, randomKey2 )){
-                temp = devolverCaminoConectado(randomKey,randomKey2);
+
+            temp = devolverCaminoConectado(randomKey,randomKey2);
+            if (temp.size() > 0) {
                 for (int j = 0; j < temp.size(); j++) {
                     nombre = temp.get(j);
                     if (apariciones.containsKey(nombre)) {
                         apariciones.put(nombre, apariciones.get(nombre) + 1);
+
                     }
                 }
             }
         }
         //Para sacar los de mayores centralidad
         temp.clear();
-        for (int i = 0; i < n; i++) {
-            HashMap.Entry<String, Integer> masCentral = null;
+
+        ArrayList<Pareja> arParejas = new ArrayList<Pareja>();
             for (HashMap.Entry<String, Integer> entry : apariciones.entrySet()) {
-                if (masCentral == null || entry.getValue().compareTo(masCentral.getValue()) > 0) {
-                    masCentral = entry;
-                    apariciones.remove(entry);
-                }
+                arParejas.add(new Pareja(entry.getKey(), entry.getValue()));
             }
-            temp.add(masCentral.getKey());
+        Collections.sort(arParejas);
+
+        if (arParejas.size() > n){
+            ArrayList<Pareja> temp1 = new ArrayList<Pareja>();
+            for (int i = arParejas.size(); i > arParejas.size() - n; i++) {
+                temp1.add(arParejas.get(i-1));
+            }
+            return temp1;
         }
-        return temp;
+
+        else return arParejas;
+
+    }
+
+    private class Pareja implements Comparable<Pareja> {
+        String nombre;
+        Integer apariciones;
+
+        public Pareja(String nombre, int apariciones) {
+            this.nombre = nombre;
+            this.apariciones = apariciones;
+        }
+
+        @Override
+        public int compareTo(Pareja o) {
+            return this.apariciones.compareTo(o.apariciones);
+        }
     }
 }
 
