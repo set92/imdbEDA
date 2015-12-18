@@ -161,7 +161,7 @@ public class GraphHash {
 
         ArrayList<String> temp = new ArrayList<String>();
         String randomKey, randomKey2, nombre;
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 10; i++) {// TODO 10 tiene que ser el numero que aparezcan todos una vez
             randomKey = lstAct.obtenerPosicion( rnd.nextInt(lstAct.obtenerNumActores()) ).devolverNombreCompleto();
             randomKey2 = lstAct.obtenerPosicion( rnd.nextInt(lstAct.obtenerNumActores()) ).devolverNombreCompleto();
 
@@ -189,7 +189,7 @@ public class GraphHash {
         if (arParejas.size() > n){
             ArrayList<Pareja> temp1 = new ArrayList<Pareja>();
             for (int i = arParejas.size(); i > arParejas.size() - n; i++) {
-                temp1.add(arParejas.get(i-1));
+                temp1.add(arParejas.get(i));
             }
             return temp1;
         }
