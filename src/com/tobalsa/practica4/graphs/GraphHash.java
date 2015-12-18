@@ -188,8 +188,8 @@ public class GraphHash {
 
         if (arParejas.size() > n){
             ArrayList<Pareja> temp1 = new ArrayList<Pareja>();
-            for (int i = arParejas.size(); i > arParejas.size() - n; i++) {
-                temp1.add(arParejas.get(i));
+            for (int i = arParejas.size(); i > arParejas.size() - n; i--) {
+                temp1.add(arParejas.get(i-1));
             }
             return temp1;
         }
