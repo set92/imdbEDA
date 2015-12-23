@@ -4,7 +4,6 @@ import com.tobalsa.practica4.graphs.GraphHash;
 import com.tobalsa.practica4.modelo.*;
 
 import java.io.*;
-import java.util.Random;
 import java.util.TreeMap;
 import java.util.regex.Pattern;
 
@@ -60,8 +59,9 @@ public class LectorFichero {
             gh = new GraphHash();
             gh.crearGrafo(miCatalogoActores);
 
-            //gh.gradoRelaciones();
-            gh.losDeMasCentralidad(10);
+            //System.out.println("Grado final: " + gh.gradoRelaciones());
+            gh.losDeMasCentralidad(5);
+            
 		} catch (FileNotFoundException e) {
 			System.out.println("El fichero seleccionado no existe");
 		} catch (IOException e) {

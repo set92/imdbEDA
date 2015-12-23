@@ -11,22 +11,18 @@ public class GraphHash {
 
     public void crearGrafo(CatalogoActores miCatalogoActores) {
         g = new HashMap<String, ArrayList<String>>();
-
         ListaActores actores = miCatalogoActores.getLista();
         Actor a;
         String nombreActor, tituloPelicula;
-
         for (int i = 0; i < actores.obtenerNumActores(); i++) {
-            a = actores.obtenerPosicion(i);//esta y la linea anterior te las quitas si haces forEach
+            a = actores.obtenerPosicion(i);
             nombreActor = a.devolverNombreCompleto();
             g.put(nombreActor, new ArrayList<String>());
-
             for (int j = 0; j < a.getApariciones().obtenerNumPeliculas(); j++) {
                 tituloPelicula = a.getApariciones().obtenerPosicion(j).getTitulo();
                 if (!g.containsKey(tituloPelicula)){
                     g.put(tituloPelicula, new ArrayList<String>());
                 }
-
                 // Insertar apariciones
                 ArrayList<String> apariciones = g.get(nombreActor);
                 apariciones.add(tituloPelicula);
@@ -111,94 +107,88 @@ public class GraphHash {
     }
     
     public double gradoRelaciones() {
-    	int nPruebas = 100;
-    	double g0, g1 = 0, E_ABS = 0.0001;
+    	int nPruebas = 250;
+    	final double E_ABS = 0.0001;
+    	double g0, g1 = 0;
     	// g0 -> grado prueba anterior
     	// g1 -> grado prueba actual
     	do {
     		g0 = g1;
     		g1 = calcularGrado(nPruebas);
-    		// System.out.println("Grado actual (" + nPruebas + " pruebas): " + g1 +	" (error actual: " + Math.abs(g0 - g1) + ")");
+    		System.out.println("Grado actual (" + nPruebas + " pruebas): " + g1 + " (error actual: " + Math.abs(g0 - g1) + ")");
     		nPruebas += nPruebas;
-		} while(Math.abs(g0 - g1) > E_ABS); // Cï¿½lculo del error absoluto
+		} while(Math.abs(g0 - g1) > E_ABS); // Cálculo del error absoluto
         return g1;
     }
     
     private double calcularGrado(int nPruebas) {
-    	ListaActores lstAct = CatalogoActores.getCatalogoActores().getLista();
+    	ListaActores actores = CatalogoActores.getCatalogoActores().getLista();
     	Random rnd = new Random();
     	String a1, a2;
     	double acum = 0;
-        int numCamino = 0;
+        int numCaminos = 0;
     	
     	for (int i = 0; i < nPruebas; i++) {
-            a1 = lstAct.obtenerPosicion(rnd.nextInt(lstAct.obtenerNumActores())).devolverNombreCompleto();
-            a2 = lstAct.obtenerPosicion(rnd.nextInt(lstAct.obtenerNumActores())).devolverNombreCompleto();
+            a1 = actores.obtenerPosicion(rnd.nextInt(actores.obtenerNumActores())).devolverNombreCompleto();
+            a2 = actores.obtenerPosicion(rnd.nextInt(actores.obtenerNumActores())).devolverNombreCompleto();
+            
             ArrayList<String> temp = devolverCaminoConectado(a1, a2);
-
-            if(temp.size() > 0){
+            if(temp.size() > 0) {
                 acum += temp.size() / 2;
-                numCamino++;
+                numCaminos++;
             }
         }
-    	return acum / numCamino;
+    	return acum / numCaminos;
     }
     
-    public double centralidad(Actor a){
-        
-        return 0;
-
-    }
-
     public ArrayList<Pareja> losDeMasCentralidad(int n){
-        Random rnd = new Random();
-        ListaActores lstAct = CatalogoActores.getCatalogoActores().getLista();
+        final int N_ITERACIONES = 427000;
+    	Random rnd = new Random();
+    	String a1, a2, nombre;
+    	ListaActores actores = CatalogoActores.getCatalogoActores().getLista();
         HashMap<String, Integer> apariciones = new HashMap<String, Integer>();
+        ArrayList<String> camino = new ArrayList<String>();
         //Rellenar HashMap con actores
-        for (int i = 0; i < lstAct.obtenerNumActores(); i++) {
-            apariciones.put(lstAct.obtenerPosicion(i).devolverNombreCompleto(),0);
+        for (int i = 0; i < actores.obtenerNumActores(); i++) {
+            apariciones.put(actores.obtenerPosicion(i).devolverNombreCompleto(),0);
         }
-
-        ArrayList<String> temp = new ArrayList<String>();
-        String randomKey, randomKey2, nombre;
-        for (int i = 0; i < 10; i++) {// TODO 10 tiene que ser el numero que aparezcan todos una vez
-            randomKey = lstAct.obtenerPosicion( rnd.nextInt(lstAct.obtenerNumActores()) ).devolverNombreCompleto();
-            randomKey2 = lstAct.obtenerPosicion( rnd.nextInt(lstAct.obtenerNumActores()) ).devolverNombreCompleto();
-
-
-            temp = devolverCaminoConectado(randomKey,randomKey2);
-            if (temp.size() > 0) {
-                for (int j = 0; j < temp.size(); j++) {
-                    nombre = temp.get(j);
-                    if (apariciones.containsKey(nombre)) {
-                        apariciones.put(nombre, apariciones.get(nombre) + 1);
-
-                    }
+        for (int i = 0; i < N_ITERACIONES; i++) {
+            a1 = actores.obtenerPosicion( rnd.nextInt(actores.obtenerNumActores()) ).devolverNombreCompleto();
+            a2 = actores.obtenerPosicion( rnd.nextInt(actores.obtenerNumActores()) ).devolverNombreCompleto();
+            camino = devolverCaminoConectado(a1, a2);
+            if (camino.size() > 0) {
+                for (int j = 0; j < camino.size(); j++) {
+                    nombre = camino.get(j);
+                    if (apariciones.containsKey(nombre)) 
+                    	apariciones.put(nombre, apariciones.get(nombre) + 1);
                 }
             }
         }
-        //Para sacar los de mayores centralidad
-        temp.clear();
-
-        ArrayList<Pareja> arParejas = new ArrayList<Pareja>();
-            for (HashMap.Entry<String, Integer> entry : apariciones.entrySet()) {
-                arParejas.add(new Pareja(entry.getKey(), entry.getValue()));
+        ArrayList<Pareja> parejas = new ArrayList<Pareja>();
+        for (HashMap.Entry<String, Integer> entry : apariciones.entrySet()) 
+        	parejas.add(new Pareja(entry.getKey(), entry.getValue()));
+        
+        Collections.sort(parejas);
+        if (parejas.size() > n) {
+            ArrayList<Pareja> primerasParejas = new ArrayList<Pareja>();
+            for (int i = parejas.size(); i > parejas.size() - n; i--) {
+                primerasParejas.add(parejas.get(i - 1));
             }
-        Collections.sort(arParejas);
-
-        if (arParejas.size() > n){
-            ArrayList<Pareja> temp1 = new ArrayList<Pareja>();
-            for (int i = arParejas.size(); i > arParejas.size() - n; i--) {
-                temp1.add(arParejas.get(i-1));
-            }
-            return temp1;
+            imprimirParejas(primerasParejas);
+            return primerasParejas;
+        } else{
+        	imprimirParejas(parejas);
+        	return parejas;
         }
-
-        else return arParejas;
-
     }
-
-    private class Pareja implements Comparable<Pareja> {
+    
+    public void imprimirParejas(ArrayList<Pareja> parejas) {
+		for (Pareja pareja : parejas) {
+			System.out.println(pareja.getNombre() + ", apariciones: " + pareja.getApariciones());
+		}
+	}
+    
+    public class Pareja implements Comparable<Pareja> {
         String nombre;
         Integer apariciones;
 
@@ -206,8 +196,14 @@ public class GraphHash {
             this.nombre = nombre;
             this.apariciones = apariciones;
         }
-
-        @Override
+        
+        public String getNombre() { return nombre; }
+		public void setNombre(String nombre) { this.nombre = nombre; }
+		
+		public Integer getApariciones() { return apariciones; }
+		public void setApariciones(Integer apariciones) { this.apariciones = apariciones; }
+		
+		@Override
         public int compareTo(Pareja o) {
             return this.apariciones.compareTo(o.apariciones);
         }
